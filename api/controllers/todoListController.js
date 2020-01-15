@@ -16,6 +16,8 @@ exports.list_all_tasks = function(req, res) {
         pool.query("SELECT * FROM client", function(err, data) {
             debugger;
             console.log(data);
+            res.send(data);
+            return data;
             // if(err) return console.log(err);
             // res.render("index.hbs", {
             //     users: data
