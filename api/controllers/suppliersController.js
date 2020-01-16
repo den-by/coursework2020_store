@@ -11,8 +11,10 @@
 
 var suppliersModel = require('../models/suppliersModel');
 
-exports.list_all_suppliers = function (req, res) {
-    suppliersModel.get(req, res);
+exports.list_all_suppliers =  async function (req, res) {
+    let data = await suppliersModel.get(req, res);
+    res.send(data);
+   
     // pool.query("SELECT * FROM supplier", function (err, data) {
     //     console.log(data);
     //     res.send(data);

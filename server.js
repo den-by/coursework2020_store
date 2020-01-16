@@ -7,7 +7,7 @@ var express = require('express'),
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var mysql = require("mysql2");
+var mysql = require("mysql2/promise");
 global.pool = mysql.createPool({
     connectionLimit: 5,
     host: "localhost",
