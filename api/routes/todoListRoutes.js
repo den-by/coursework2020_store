@@ -9,7 +9,7 @@ module.exports = function(app) {
         .post(todoList.create_a_task);
 
     app.route('/suppliers')
-        .get(suppliers.list_all_suppliers())
+        .get(suppliers.list_all_suppliers)
         .post(todoList.create_a_task);
 
 

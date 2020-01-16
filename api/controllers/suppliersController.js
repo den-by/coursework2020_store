@@ -1,16 +1,16 @@
 'use strict';
 
-const mysql = require("mysql2");
-const pool = mysql.createPool({
-    connectionLimit: 5,
-    host: "localhost",
-    user: "root",
-    database: "course_work",
-    password: ""
-});
+// const mysql = require("mysql2");
+// const pool = mysql.createPool({
+//     connectionLimit: 5,
+//     host: "localhost",
+//     user: "root",
+//     database: "course_work",
+//     password: ""
+// });
 
 exports.list_all_suppliers = function(req, res) {
-        pool.query("SELECT * FROM suppliers", function(err, data) {
+        pool.query("SELECT * FROM supplier", function(err, data) {
             console.log(data);
             res.send(data);
             return data;
