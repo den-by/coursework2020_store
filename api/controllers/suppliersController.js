@@ -13,8 +13,12 @@ var suppliersModel = require('../models/suppliersModel');
 
 exports.list_all_suppliers =  async function (req, res) {
     let data = await suppliersModel.get(req, res);
-    res.send(data);
-   
+    // res.send(data);
+    // res.render(data);
+    // app.get('/', (req, res) => {
+        res.render('home', { title: 'Greetings form Handlebars' })
+    // })
+
     // pool.query("SELECT * FROM supplier", function (err, data) {
     //     console.log(data);
     //     res.send(data);
