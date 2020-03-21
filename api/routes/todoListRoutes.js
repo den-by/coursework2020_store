@@ -2,7 +2,7 @@
 module.exports = function(app) {
     var todoList = require('../controllers/todoListController');
     var suppliers = require('../controllers/suppliersController');
-    const testClass = require("../controllers/testClass");
+    const TestClass = require("../controllers/TestClass");
 
 
     // todoList Routes
@@ -11,7 +11,7 @@ module.exports = function(app) {
         .post(todoList.create_a_task);
 
     app.route('/suppliers')
-        .get(testClass.list_all_suppliers)
+        .get(TestClass.list_all_suppliers)
         .post(todoList.create_a_task);
 
 
