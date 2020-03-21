@@ -16,7 +16,7 @@ exports.list_all_suppliers =  async function (req, res) {
     // res.send(data);
     // res.render(data);
     // app.get('/', (req, res) => {
-        res.render('home', { title: 'Greetings form Handlebars' })
+        res.render('home', { title: 'Greetings form Handlebars', 'data': data})
     // })
 
     // pool.query("SELECT * FROM supplier", function (err, data) {

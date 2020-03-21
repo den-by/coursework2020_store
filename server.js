@@ -4,8 +4,23 @@ var express = require('express'),
     Task = require('./api/models/todoListModel'), //created model loading here
     bodyParser = require('body-parser');
 var handlebars = require('express-handlebars');
+// var handlebarsHelper = require('./helpers/handlebars.js')(handlebars);
 
-app.engine('hbs', handlebars({defaultLayout: 'main', extname: "hbs"}));
+var hbs = handlebars.create({
+    defaultLayout: 'main', extname: "hbs",
+    helpers: require("./helpers/handlebars.js")
+    // Specify helpers which are only registered on this instance.
+    // helpers: {
+    //     foo: function () {
+    //         return 'FOO!';
+    //     },
+    //     bar: function () {
+    //         return 'BAR!';
+    //     }
+    // }
+});
+
+app.engine('hbs', hbs.engine);
 app.set('views', './views');
 app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({extended: true}));
