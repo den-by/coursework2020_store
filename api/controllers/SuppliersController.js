@@ -1,6 +1,6 @@
-var suppliersModel = require('../models/TestClass');
+var suppliersModel = require('../models/SuppliersModel');
 
-class TestClass extends require('../controllers/mainClass'){
+class SuppliersController extends require('./BaseController'){
 
     static async list_all_suppliers(req, res) {
         var a=0;
@@ -9,4 +9,4 @@ class TestClass extends require('../controllers/mainClass'){
     }
 }
 
-module.exports = TestClass;
+module.exports = SuppliersController;

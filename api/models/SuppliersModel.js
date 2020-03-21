@@ -1,7 +1,7 @@
 const TABLE_NAME = 'supplier';
 const SUPPLIER_TYPE_ID = 'supplier_type_id';
 
-class TestClass extends require('../models/mainClass'){
+class SuppliersModel extends require('./BaseModel'){
      static async get (req) {
         let minValue = req.query.minValue;
         let productId = req.query.productId;
@@ -28,4 +28,4 @@ class TestClass extends require('../models/mainClass'){
 
 }
 
-module.exports = TestClass;
+module.exports = SuppliersModel;

@@ -1,6 +1,6 @@
 'use strict';
 
-var suppliersModel = require('../models/suppliersModel');
+var suppliersModel = require('../models/suppliersModel2');
 
 
 exports.list_all_suppliers = async function (req, res) {

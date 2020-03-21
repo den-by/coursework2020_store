@@ -1,8 +1,8 @@
 'use strict';
 module.exports = function(app) {
     var todoList = require('../controllers/todoListController');
-    var suppliers = require('../controllers/suppliersController');
-    const TestClass = require("../controllers/TestClass");
+    // var suppliers = require('../controllers/suppliersController2');
+    const SuppliersController = require("../controllers/SuppliersController");
 
 
     // todoList Routes
@@ -11,7 +11,7 @@ module.exports = function(app) {
         .post(todoList.create_a_task);
 
     app.route('/suppliers')
-        .get(TestClass.list_all_suppliers)
+        .get(SuppliersController.list_all_suppliers)
         .post(todoList.create_a_task);
 
 
