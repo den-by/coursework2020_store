@@ -3,23 +3,13 @@ var express = require('express'),
     port = process.env.PORT || 4000,
     Task = require('./api/models/todoListModel'), //created model loading here
     bodyParser = require('body-parser');
+
 var handlebars = require('express-handlebars');
-// var handlebarsHelper = require('./helpers/handlebars.js')(handlebars);
-
 var hbs = handlebars.create({
-    defaultLayout: 'main', extname: "hbs",
+    defaultLayout: 'main',
+    extname: "hbs",
     helpers: require("./helpers/handlebars.js")
-    // Specify helpers which are only registered on this instance.
-    // helpers: {
-    //     foo: function () {
-    //         return 'FOO!';
-    //     },
-    //     bar: function () {
-    //         return 'BAR!';
-    //     }
-    // }
 });
-
 app.engine('hbs', hbs.engine);
 app.set('views', './views');
 app.set('view engine', 'hbs');
@@ -30,7 +20,6 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     // res.header("Access-Control-Allow-Credential","true");
-
     next();
 });
 
