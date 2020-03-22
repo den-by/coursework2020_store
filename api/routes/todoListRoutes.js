@@ -14,6 +14,9 @@ module.exports = function(app) {
         .get(SuppliersController.list_all_suppliers)
         .post(todoList.create_a_task);
 
+    app.route('/suppliers/by_products')
+        .get(SuppliersController.suppliers_by_products)
+        .post(todoList.create_a_task);
 
     app.route('/tasks/:taskId')
         .get(todoList.read_a_task)
