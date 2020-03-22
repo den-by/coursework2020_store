@@ -25,7 +25,7 @@ class SuppliersModel extends require("./BaseModel") {
         return TABLE_NAME;
     }
 
-    static async get(req) {
+    static  get(req) {
         this.join.push("JOIN supplier_types on supplier_types.id = suppliers.supplier_type_id");
 
         if (req.query[SUPPLIER_TYPE_ID]) {
@@ -52,7 +52,7 @@ class SuppliersModel extends require("./BaseModel") {
             }
         }
 
-        return this.getSQL();
+        return  this.getSQL();
     };
 
     static async getByProduct(req) {
@@ -82,7 +82,7 @@ class SuppliersModel extends require("./BaseModel") {
             }
         }
 
-        return this.getSQL();
+        return await this.getSQL();
 
     };
 

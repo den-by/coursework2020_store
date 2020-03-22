@@ -29,17 +29,24 @@ class testClass {
             sql += ` ${this.join.join(" ")}`;
         }
 
+        this.join = [];
+
         if (this.where.length > 0) {
             sql += ` where ${this.where.join(" and ")}`;
         }
+        this.where = [];
 
         if (this.groupBy.length > 0) {
             sql += ` group by ${this.groupBy.join(" and ")}`;
         }
 
+        this.groupBy = [];
+
         if (this.having.length > 0) {
             sql += ` having ${this.having.join(" and ")}`;
         }
+
+        this.having = [];
 
         const data = await pool.query(sql);
         return data[0];
