@@ -1,20 +1,23 @@
+"use strict";
 const TABLE_NAME = "suppliers";
 const SUPPLIER_TYPE_ID = "supplier_type_id";
 const PRODUCT_ID = "product_id";
+const START_DATE = 'start_date';
+const END_DATE = 'end_date';
+const MIN_VALUE = 'min_value';
+const ID = 'id';
+const NAME = 'supplier_name';
+const FIELDS = [
+    ID, SUPPLIER_TYPE_ID, NAME
+];
 
 class SuppliersModel extends require("./BaseModel") {
     static async get(req) {
-        let minValue = req.query.minValue;
-        let productId = req.query.productId;
-        let startData = req.query.startData;
-        let minData = req.query.minData;
-        // req.param.asd;
-
-
-        let sql = `SELECT * FROM ${TABLE_NAME}`;
+        let selectedField = this.getSelectedField();
+        let sql = `SELECT ${selectedField.join(', ')} FROM ${TABLE_NAME}`;
 
         let where = [];
-        let join = [];
+        let join = ["JOIN supplier_types on supplier_types.id = suppliers.supplier_type_id"];
 
         if (req.query[SUPPLIER_TYPE_ID]) {
             where.push(`${TABLE_NAME}.${SUPPLIER_TYPE_ID} = ${req.query[SUPPLIER_TYPE_ID]}`);
@@ -24,6 +27,12 @@ class SuppliersModel extends require("./BaseModel") {
             join.push("JOIN links_products_suppliers on links_products_suppliers.supplier_id = suppliers.id");
             join.push("JOIN products on products.id = links_products_suppliers.product_id");
         }
+
+        if (req.query[START_DATE] && req.query[END_DATE] && req.query[MIN_VALUE]) {
+            join.push("JOIN product_deliverys on product_deliverys.product_id = product.id");
+            join.push("JOIN products on products.id = links_products_suppliers.product_id");
+        }
+
 
         if (join.length > 0) {
             sql += ` ${join.join(" ")}`;
@@ -43,6 +52,14 @@ class SuppliersModel extends require("./BaseModel") {
         //     res.json(task);
         // });
     };
+
+    static getSelectedField() {
+        let res = [];
+        FIELDS.forEach(function (field) {
+            res.push(`${TABLE_NAME}.${field} as ${TABLE_NAME}_${field}`);
+        });
+        return res;
+    }
 
 
 }
