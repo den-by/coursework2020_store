@@ -3,6 +3,7 @@ class testClass {
         this.height = height;
         this.width = width;
     }
+
 }
 
 module.exports = testClass;

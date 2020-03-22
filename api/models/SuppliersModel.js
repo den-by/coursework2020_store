@@ -1,8 +1,8 @@
-const TABLE_NAME = 'supplier';
-const SUPPLIER_TYPE_ID = 'supplier_type_id';
+const TABLE_NAME = "supplier";
+const SUPPLIER_TYPE_ID = "supplier_type_id";
 
-class SuppliersModel extends require('./BaseModel'){
-     static async get (req) {
+class SuppliersModel extends require("./BaseModel") {
+    static async get(req) {
         let minValue = req.query.minValue;
         let productId = req.query.productId;
         let startData = req.query.startData;
@@ -11,9 +11,21 @@ class SuppliersModel extends require('./BaseModel'){
 
 
         let sql = `SELECT * FROM ${TABLE_NAME}`;
+
         let where = [];
-        if (req.query[SUPPLIER_TYPE_ID]) where.push(`${TABLE_NAME}.${SUPPLIER_TYPE_ID}`);
-        if (where.length>0) sql += ` where ${where}`;
+
+        if (req.query[SUPPLIER_TYPE_ID]) {
+            where.push(`${TABLE_NAME}.${SUPPLIER_TYPE_ID} = ${req.query[SUPPLIER_TYPE_ID]}`);
+        }
+
+        if (req.query[SUPPLIER_TYPE_ID]) {
+            where.push(`${TABLE_NAME}.${SUPPLIER_TYPE_ID} = ${req.query[SUPPLIER_TYPE_ID]}`);
+        }
+
+        if (where.length > 0) {
+            sql += ` where ${where.join(" and ")}`;
+        }
+
         const data = await pool.query(sql);
         return data[0];
         // res.send(data);
