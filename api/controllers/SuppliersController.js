@@ -3,7 +3,7 @@ var suppliersModel = require('../models/SuppliersModel');
 class SuppliersController extends require('./BaseController'){
 
     static async list_all_suppliers(req, res) {
-         let data = await suppliersModel.get(req, res);
+         let data = await suppliersModel.getByType(req, res);
          res.render('home', {title: 'Greetings form Handlebars', 'data': data})
     }
 

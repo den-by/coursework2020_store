@@ -25,20 +25,28 @@ class SuppliersModel extends require("./BaseModel") {
         return TABLE_NAME;
     }
 
-    static  get(req) {
+    static getByType(req) {
         this.join.push("JOIN supplier_types on supplier_types.id = suppliers.supplier_type_id");
 
         if (req.query[SUPPLIER_TYPE_ID]) {
             this.where.push(`${TABLE_NAME}.${SUPPLIER_TYPE_ID} = ${req.query[SUPPLIER_TYPE_ID]}`);
         }
+        this.filterByProductId(req);
 
+        // let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        this.filterByDelivery(req);
+
+        return this.getSQL();
+    };
+
+    static filterByProductId(req) {
         if (req.query[PRODUCT_ID]) {
             this.join.push("JOIN links_products_suppliers on links_products_suppliers.supplier_id = suppliers.id");
             this.join.push("JOIN products on products.id = links_products_suppliers.product_id");
         }
+    }
 
-        // let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-
+    static filterByDelivery(req) {
         if (req.query[START_DATE] && req.query[END_DATE] && req.query[MIN_VALUE] && req.query[DELIVERYS_PRODUCT_ID]) {
             const startDate = Date.parse(req.query[START_DATE]);
             const endDate = Date.parse(req.query[END_DATE]);
@@ -51,9 +59,7 @@ class SuppliersModel extends require("./BaseModel") {
                 this.having.push(`sum(${DELIVERYS_TABLE}.count) >= ${req.query[MIN_VALUE]}`);
             }
         }
-
-        return  this.getSQL();
-    };
+    }
 
     static async getByProduct(req) {
         // if (req.query[SUPPLIER_TYPE_ID]) {
@@ -63,24 +69,11 @@ class SuppliersModel extends require("./BaseModel") {
         // this.join.push("JOIN links_products_suppliers on links_products_suppliers.supplier_id = suppliers.id");
         // this.join.push("JOIN products on products.id = links_products_suppliers.product_id");
 
-        if (req.query[PRODUCT_ID]) {
-
-        }
+        this.filterByProductId(req);
 
         // let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-        if (req.query[START_DATE] && req.query[END_DATE] && req.query[MIN_VALUE] && req.query[DELIVERYS_PRODUCT_ID]) {
-            const startDate = Date.parse(req.query[START_DATE]);
-            const endDate = Date.parse(req.query[END_DATE]);
-            if (startDate && endDate) {
-                this.join.push("JOIN deliverys on deliverys.supplier_id = suppliers.id");
-                this.where.push(`${DELIVERYS_PRODUCT_ID} = ${req.query[DELIVERYS_PRODUCT_ID]}`);
-                this.where.push(`${DELIVERYS_TABLE}.date_add > ${req.query[START_DATE]}`);
-                this.where.push(`${DELIVERYS_TABLE}.date_add < ${req.query[END_DATE]}`);
-                this.groupBy.push(`${TABLE_NAME}.id`);
-                this.having.push(`sum(${DELIVERYS_TABLE}.count) >= ${req.query[MIN_VALUE]}`);
-            }
-        }
+        this.filterByDelivery(req);
 
         return await this.getSQL();
 
