@@ -1,4 +1,6 @@
 "use strict";
+const LinksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
+const DeliveryModel = require('../models/DeliveryModel');
 const TABLE_NAME = "suppliers";
 const PRODUCT_ID = "product_id";
 
@@ -25,11 +27,15 @@ class SuppliersModel extends require("./BaseModel") {
         return TABLE_NAME;
     }
 
+    static get SUPPLIER_TYPE_ID() {
+        return SUPPLIER_TYPE_ID;
+    }
+
     static getByType(req) {
-        this.join.push("JOIN supplier_types on supplier_types.id = suppliers.supplier_type_id");
+        this.joinSupplierType();
 
         if (req.query[SUPPLIER_TYPE_ID]) {
-            this.where.push(`${TABLE_NAME}.${SUPPLIER_TYPE_ID} = ${req.query[SUPPLIER_TYPE_ID]}`);
+            this.filterBySupplierType(req);
         }
         this.filterByProductId(req);
 
@@ -39,45 +45,56 @@ class SuppliersModel extends require("./BaseModel") {
         return this.getSQL();
     };
 
-    static filterByProductId(req) {
-        if (req.query[PRODUCT_ID]) {
-            this.join.push("JOIN links_products_suppliers on links_products_suppliers.supplier_id = suppliers.id");
-            this.join.push("JOIN products on products.id = links_products_suppliers.product_id");
+    static filterBySupplierType(supplier_type_id) {
+        if (supplier_type_id) {
+            this.where.push(`${TABLE_NAME}.${SUPPLIER_TYPE_ID} = ${supplier_type_id}`);
         }
+        return this;
     }
 
-    static filterByDelivery(req) {
-        if (req.query[START_DATE] && req.query[END_DATE] && req.query[MIN_VALUE] && req.query[DELIVERYS_PRODUCT_ID]) {
-            const startDate = Date.parse(req.query[START_DATE]);
-            const endDate = Date.parse(req.query[END_DATE]);
-            if (startDate && endDate) {
-                this.join.push("JOIN deliverys on deliverys.supplier_id = suppliers.id");
-                this.where.push(`${DELIVERYS_PRODUCT_ID} = ${req.query[DELIVERYS_PRODUCT_ID]}`);
-                this.where.push(`${DELIVERYS_TABLE}.date_add > ${req.query[START_DATE]}`);
-                this.where.push(`${DELIVERYS_TABLE}.date_add < ${req.query[END_DATE]}`);
-                this.groupBy.push(`${TABLE_NAME}.id`);
-                this.having.push(`sum(${DELIVERYS_TABLE}.count) >= ${req.query[MIN_VALUE]}`);
-            }
-        }
+    static joinSupplierType() {
+        this.join.push("JOIN supplier_types on supplier_types.id = suppliers.supplier_type_id");
+        return this;
     }
 
-    static async getByProduct(req) {
-        // if (req.query[SUPPLIER_TYPE_ID]) {
-        //     this.where.push(`${TABLE_NAME}.${SUPPLIER_TYPE_ID} = ${req.query[SUPPLIER_TYPE_ID]}`);
+    static filterByProductId(product_id) {
+        if (product_id) {
+            this.joinLinkProductsSuppliers();
+            LinksProductsSuppliersModel.filterByProductId.call(this, product_id);
+        }
+        // this.call(,product_id);
+        // this.where.push(`${LinksProductsSuppliersModel.TABLE_NAME}.${LinksProductsSuppliersModel.PRODUCT_ID} = ${product_id}`);
+        return this;
+    }
+
+    static joinLinkProductsSuppliers() {
+        this.join.push(`JOIN ${LinksProductsSuppliersModel.TABLE_NAME} on ${LinksProductsSuppliersModel.TABLE_NAME}.${LinksProductsSuppliersModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
+        return this
+    }
+
+    static filterByDelivery(startData, endData, minValue, productId) {
+        // if (product_id) {
+        if (startData && endData && minValue && productId) {
+            this.join.push(`JOIN ${DeliveryModel.TABLE_NAME} on ${DeliveryModel.TABLE_NAME}.${DeliveryModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
+            DeliveryModel.filterByDelivery.call(this, startData, endData, minValue, productId);
+                     this.groupBy.push(`${TABLE_NAME}.id`);
+                     this.having.push(`sum(${DELIVERYS_TABLE}.count) >= ${minValue}`);
+        }
         // }
+        // if (req.query[START_DATE] && req.query[END_DATE] && req.query[MIN_VALUE] && req.query[DELIVERYS_PRODUCT_ID]) {
+        //     const startDate = Date.parse(req.query[START_DATE]);
+        //     const endDate = Date.parse(req.query[END_DATE]);
+        //     if (startDate && endDate) {
+        //         this.join.push("JOIN deliverys on deliverys.supplier_id = suppliers.id");
+        //         this.where.push(`${DELIVERYS_PRODUCT_ID} = ${req.query[DELIVERYS_PRODUCT_ID]}`);
+        //         this.where.push(`${DELIVERYS_TABLE}.date_add > ${req.query[START_DATE]}`);
+        //         this.where.push(`${DELIVERYS_TABLE}.date_add < ${req.query[END_DATE]}`);
+        //         this.groupBy.push(`${TABLE_NAME}.id`);
+        //         this.having.push(`sum(${DELIVERYS_TABLE}.count) >= ${req.query[MIN_VALUE]}`);
+        //     }
+        // }
+    }
 
-        // this.join.push("JOIN links_products_suppliers on links_products_suppliers.supplier_id = suppliers.id");
-        // this.join.push("JOIN products on products.id = links_products_suppliers.product_id");
-
-        this.filterByProductId(req);
-
-        // let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-
-        this.filterByDelivery(req);
-
-        return await this.getSQL();
-
-    };
 
 
 }

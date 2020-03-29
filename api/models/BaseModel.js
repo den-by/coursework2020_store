@@ -1,5 +1,6 @@
 class testClass {
 
+    static select = [];
     static where = [];
     static join = [];
     static groupBy = [];
@@ -14,11 +15,13 @@ class testClass {
     }
 
     static getSelectedField() {
-        let res = [];
-        this.FIELDS.forEach((field) => {
-            res.push(`${this.TABLE_NAME}.${field} as ${this.TABLE_NAME}_${field}`);
-        });
-        return res;
+        if (this.select.length < 1) {
+            let res = [];
+            this.FIELDS.forEach((field) => {
+                res.push(`${this.TABLE_NAME}.${field} as ${this.TABLE_NAME}_${field}`);
+            });
+            return res;
+        }
     }
 
     static async getSQL() {
@@ -48,6 +51,7 @@ class testClass {
 
         this.having = [];
 
+        console.log(sql);
         const data = await pool.query(sql);
         return data[0];
     }
