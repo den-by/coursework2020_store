@@ -7,6 +7,20 @@ class testClass {
     static having = [];
     static tables = [];
 
+    static data = {
+        select: this.select,
+        where: this.select,
+        join: this.select,
+        groupBy: this.select,
+        having: this.select,
+        tables: this.select,
+    };
+
+    static syncData(data) {
+        this.data = data;
+    }
+
+
     static get FIELDS() {
         throw new SyntaxError("Данные некорректны");
     }
@@ -40,11 +54,11 @@ class testClass {
 
         this.tables = [];
 
-        if (this.join.length > 0) {
-            sql += ` ${this.join.join(" ")}`;
+        if (this.data.join.length > 0) {
+            sql += ` ${this.data.join.join(" ")}`;
         }
 
-        this.join = [];
+        this.data.join = [];
 
         if (this.where.length > 0) {
             sql += ` where ${this.where.join(" and ")}`;

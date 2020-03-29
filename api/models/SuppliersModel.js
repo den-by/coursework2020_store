@@ -46,7 +46,7 @@ class SuppliersModel extends require("./BaseModel") {
     }
 
     static joinSupplierType() {
-        this.join.push("JOIN supplier_types on supplier_types.id = suppliers.supplier_type_id");
+        this.data.join.push("JOIN supplier_types on supplier_types.id = suppliers.supplier_type_id");
         return this;
     }
 
@@ -64,7 +64,7 @@ class SuppliersModel extends require("./BaseModel") {
     }
 
     static joinLinkProductsSuppliers() {
-        this.join.push(`JOIN ${LinksProductsSuppliersModel.TABLE_NAME} on ${LinksProductsSuppliersModel.TABLE_NAME}.${LinksProductsSuppliersModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
+        this.data.join.push(`JOIN ${LinksProductsSuppliersModel.TABLE_NAME} on ${LinksProductsSuppliersModel.TABLE_NAME}.${LinksProductsSuppliersModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
         return this
     }
 
@@ -78,7 +78,8 @@ class SuppliersModel extends require("./BaseModel") {
     }
 
     static joinDelivery = () => {
-        this.join.push(`JOIN ${DeliveryModel.TABLE_NAME} on ${DeliveryModel.TABLE_NAME}.${DeliveryModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
+        this.data.join.push(`JOIN ${DeliveryModel.TABLE_NAME} on ${DeliveryModel.TABLE_NAME}.${DeliveryModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
+        DeliveryModel.syncData(this.data);
         return DeliveryModel;
     }
 }

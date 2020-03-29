@@ -24,7 +24,8 @@ class ProductsModel extends require("./BaseModel") {
     }
 
     static joinWriteoffs = () => {
-        this.join.push(`JOIN ${WriteoffsModel.TABLE_NAME} on ${WriteoffsModel.TABLE_NAME}.${WriteoffsModel.PRODUCT_ID} = ${TABLE_NAME}.${ID}`);
+        this.data.join.push(`JOIN ${WriteoffsModel.TABLE_NAME} on ${WriteoffsModel.TABLE_NAME}.${WriteoffsModel.PRODUCT_ID} = ${TABLE_NAME}.${ID}`);
+        WriteoffsModel.syncData(this.data)
         return WriteoffsModel;
     }
 }

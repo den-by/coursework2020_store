@@ -61,7 +61,8 @@ class DeliveryModel extends require("./BaseModel") {
     }
 
     static joinProducts = () => {
-        this.join.push(`JOIN ${ProductsModel.TABLE_NAME} on ${ProductsModel.TABLE_NAME}.${ProductsModel.ID} = ${TABLE_NAME}.${PRODUCT_ID}`);
+        this.data.join.push(`JOIN ${ProductsModel.TABLE_NAME} on ${ProductsModel.TABLE_NAME}.${ProductsModel.ID} = ${TABLE_NAME}.${PRODUCT_ID}`);
+        ProductsModel.syncData(this.data);
         return ProductsModel;
     }
 }
