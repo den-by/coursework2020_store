@@ -1,4 +1,5 @@
 "use strict";
+const ProductsModel = require('../models/ProductsModel');
 const ID = 'id';
 const TABLE_NAME = 'deliverys';
 const DATE_ADD = 'date_add';
@@ -57,6 +58,11 @@ class DeliveryModel extends require("./BaseModel") {
                 this.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData}`);
             }
         }
+    }
+
+    static joinProducts = () => {
+        this.join.push(`JOIN ${ProductsModel.TABLE_NAME} on ${ProductsModel.TABLE_NAME}.${ProductsModel.ID} = ${TABLE_NAME}.${PRODUCT_ID}`);
+        return ProductsModel;
     }
 }
 

@@ -2,6 +2,7 @@
 module.exports = function(app) {
     var todoList = require('../controllers/todoListController');
     const SuppliersController = require("../controllers/SuppliersController");
+    const ProductsController = require("../controllers/ProductsController");
 
 
     // todoList Routes
@@ -15,6 +16,10 @@ module.exports = function(app) {
 
     app.route('/suppliers/delivery_time')
         .get(SuppliersController.getSuppliersAndDeliveryTimeByProduct)
+        .post(todoList.create_a_task);
+
+    app.route('/products/delivery_defective')
+        .get(ProductsController.getDefectedDeliveryByProducts)
         .post(todoList.create_a_task);
 
     app.route('/tasks/:taskId')

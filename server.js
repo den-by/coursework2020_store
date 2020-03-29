@@ -34,7 +34,7 @@ global.pool = mysql.createPool({
 });
 
 
-var routes = require('./api/routes/todoListRoutes'); //importing route
+var routes = require('./api/routes/Routes'); //importing route
 routes(app); //register the route
 
 

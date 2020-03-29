@@ -38,6 +38,8 @@ class testClass {
 
         let sql = `SELECT ${this.getAllSelectedField().join(', ')} FROM ${this.TABLE_NAME}`;
 
+        this.tables = [];
+
         if (this.join.length > 0) {
             sql += ` ${this.join.join(" ")}`;
         }
