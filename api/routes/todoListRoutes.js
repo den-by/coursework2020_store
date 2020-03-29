@@ -1,7 +1,6 @@
 'use strict';
 module.exports = function(app) {
     var todoList = require('../controllers/todoListController');
-    // var suppliers = require('../controllers/suppliersController2');
     const SuppliersController = require("../controllers/SuppliersController");
 
 
@@ -14,8 +13,8 @@ module.exports = function(app) {
         .get(SuppliersController.list_all_suppliers)
         .post(todoList.create_a_task);
 
-    app.route('/suppliers/by_products')
-        .get(SuppliersController.suppliers_by_products)
+    app.route('/suppliers/delivery_time')
+        .get(SuppliersController.getSuppliersAndDeliveryTimeByProduct)
         .post(todoList.create_a_task);
 
     app.route('/tasks/:taskId')
