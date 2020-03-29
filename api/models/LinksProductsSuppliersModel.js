@@ -3,7 +3,7 @@ const TABLE_NAME = "links_products_suppliers";
 const ID = 'id';
 const SUPPLIER_ID = "supplier_id";
 const PRODUCT_ID = "product_id";
-const PURCHASE_PRICE = 'purchase_prise';
+const PURCHASE_PRICE = 'purchase_price';
 const DELIVERY_HOUR = 'delivery_hour';
 const FIELDS = [
     ID, SUPPLIER_ID, PRODUCT_ID, PURCHASE_PRICE, DELIVERY_HOUR

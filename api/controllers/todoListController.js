@@ -12,17 +12,17 @@ const pool = mysql.createPool({
 // var mongoose = require('mongoose'),
 //     Task = mongoose.model('Tasks');
 
-exports.list_all_tasks = function(req, res) {
-        pool.query("SELECT * FROM client", function(err, data) {
-            debugger;
-            console.log(data);
-            res.send(data);
-            return data;
-            // if(err) return console.log(err);
-            // res.render("index.hbs", {
-            //     users: data
-            // });
-        });
+exports.list_all_tasks = function (req, res) {
+    pool.query("SELECT * FROM client", function (err, data) {
+        debugger;
+        console.log(data);
+        res.send(data);
+        return data;
+        // if(err) return console.log(err);
+        // res.render("index.hbs", {
+        //     users: data
+        // });
+    });
     // Task.find({}, function(err, task) {
     //     if (err)
     //         res.send(err);
@@ -31,44 +31,46 @@ exports.list_all_tasks = function(req, res) {
 };
 
 
-
-
-exports.create_a_task = function(req, res) {
+exports.create_a_task = function (req, res) {
     var new_task = new Task(req.body);
-    new_task.save(function(err, task) {
-        if (err)
+    new_task.save(function (err, task) {
+        if (err) {
             res.send(err);
+        }
         res.json(task);
     });
 };
 
 
-exports.read_a_task = function(req, res) {
-    Task.findById(req.params.taskId, function(err, task) {
-        if (err)
+exports.read_a_task = function (req, res) {
+    Task.findById(req.params.taskId, function (err, task) {
+        if (err) {
             res.send(err);
+        }
         res.json(task);
     });
 };
 
 
-exports.update_a_task = function(req, res) {
-    Task.findOneAndUpdate({_id: req.params.taskId}, req.body, {new: true}, function(err, task) {
-        if (err)
+exports.update_a_task = function (req, res) {
+    Task.findOneAndUpdate({_id: req.params.taskId}, req.body, {new: true}, function (err, task) {
+        if (err) {
             res.send(err);
+        }
         res.json(task);
     });
 };
 
 
-exports.delete_a_task = function(req, res) {
+exports.delete_a_task = function (req, res) {
 
 
     Task.remove({
         _id: req.params.taskId
-    }, function(err, task) {
-        if (err)
+    }, function (err, task) {
+        if (err) {
             res.send(err);
-        res.json({ message: 'Task successfully deleted' });
+        }
+        res.json({message: 'Task successfully deleted'});
     });
 };

@@ -5,6 +5,7 @@ class testClass {
     static join = [];
     static groupBy = [];
     static having = [];
+    static tables = [];
 
     static get FIELDS() {
         throw new SyntaxError("Данные некорректны");
@@ -14,19 +15,28 @@ class testClass {
         throw new SyntaxError("Данные некорректны");
     }
 
-    static getSelectedField() {
-        if (this.select.length < 1) {
-            let res = [];
-            this.FIELDS.forEach((field) => {
-                res.push(`${this.TABLE_NAME}.${field} as ${this.TABLE_NAME}_${field}`);
-            });
-            return res;
-        }
+    static getAllSelectedField() {
+        let select = [];
+        this.tables.unshift(this);
+        this.tables.forEach((tables) => {
+            let items = tables.getThisSelect();
+            select = select.concat(items);
+        });
+
+        return select;
+    }
+
+    static getThisSelect() {
+        let select = [];
+        this.FIELDS.forEach((field) => {
+            select.push(`${this.TABLE_NAME}.${field} as ${this.TABLE_NAME}_${field}`);
+        });
+        return select;
     }
 
     static async getSQL() {
 
-        let sql = `SELECT ${this.getSelectedField().join(', ')} FROM ${this.TABLE_NAME}`;
+        let sql = `SELECT ${this.getAllSelectedField().join(', ')} FROM ${this.TABLE_NAME}`;
 
         if (this.join.length > 0) {
             sql += ` ${this.join.join(" ")}`;

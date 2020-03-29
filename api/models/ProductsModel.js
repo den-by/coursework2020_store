@@ -1,5 +1,5 @@
 "use strict";
-const TABLE_NAME = "links_products_suppliers";
+const TABLE_NAME = "products";
 const ID = 'id';
 const PRODUCT_ID = "product_id";
 const PRODUCT_DESCRIPTION = "product_description";

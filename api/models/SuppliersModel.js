@@ -58,12 +58,16 @@ class SuppliersModel extends require("./BaseModel") {
     }
 
     static filterByProductId(product_id) {
+        // if (product_id) {
+        this.joinLinkProductsSuppliers();
         if (product_id) {
-            this.joinLinkProductsSuppliers();
             LinksProductsSuppliersModel.filterByProductId.call(this, product_id);
         }
-        // this.call(,product_id);
-        // this.where.push(`${LinksProductsSuppliersModel.TABLE_NAME}.${LinksProductsSuppliersModel.PRODUCT_ID} = ${product_id}`);
+        return this;
+    }
+
+    static selectPriceDeliveryTime() {
+        this.tables.push(LinksProductsSuppliersModel);
         return this;
     }
 
@@ -77,8 +81,8 @@ class SuppliersModel extends require("./BaseModel") {
         if (startData && endData && minValue && productId) {
             this.join.push(`JOIN ${DeliveryModel.TABLE_NAME} on ${DeliveryModel.TABLE_NAME}.${DeliveryModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
             DeliveryModel.filterByDelivery.call(this, startData, endData, minValue, productId);
-                     this.groupBy.push(`${TABLE_NAME}.id`);
-                     this.having.push(`sum(${DELIVERYS_TABLE}.count) >= ${minValue}`);
+            this.groupBy.push(`${TABLE_NAME}.id`);
+            this.having.push(`sum(${DELIVERYS_TABLE}.count) >= ${minValue}`);
         }
         // }
         // if (req.query[START_DATE] && req.query[END_DATE] && req.query[MIN_VALUE] && req.query[DELIVERYS_PRODUCT_ID]) {
@@ -94,7 +98,6 @@ class SuppliersModel extends require("./BaseModel") {
         //     }
         // }
     }
-
 
 
 }

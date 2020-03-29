@@ -1,7 +1,7 @@
 "use strict";
 const suppliersModel = require('../models/SuppliersModel');
 
- const LinksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
+const LinksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
 
 class SuppliersService extends require("./BaseService") {
     static getByTypeIdProductIdDelivery(supplier_type_id, product_id, startData, endData, minValue, productId) {
@@ -28,6 +28,7 @@ class SuppliersService extends require("./BaseService") {
         // this.join.push("JOIN products on products.id = links_products_suppliers.product_id");
 
         suppliersModel.filterByProductId(productId);
+        suppliersModel.selectPriceDeliveryTime();
 
         // let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
