@@ -11,7 +11,7 @@ class SuppliersService extends require("./BaseService") {
 
         // suppliersModel.selectPriceDeliveryTime();
         return suppliersModel.getSQL();
-
+//https://sqlinfo.ru/articles/info/39.html
     };
 
 }
