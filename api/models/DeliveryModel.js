@@ -1,5 +1,6 @@
 "use strict";
 const ProductsModel = require('../models/ProductsModel');
+const SuppliersModel = require('../models/SuppliersModel');
 const ID = 'id';
 const TABLE_NAME = 'deliverys';
 const DATE_ADD = 'date_add';
@@ -48,23 +49,26 @@ class DeliveryModel extends require("./BaseModel") {
         return TABLE_NAME;
     }
 
-    static filterByDelivery(startData, endData, minValue, productId) {
-        if (startData && endData && minValue && productId) {
+    static filterByDelivery(startData, endData, productId) {
+        if(productId) {
+            this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${productId}`);
+        }
+        if (startData && endData) {
             const parseStartDate = Date.parse(startData);
             const parseEndDate = Date.parse(endData);
             if (parseStartDate && parseEndDate) {
-                this.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${productId}`);
-                this.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData}`);
-                this.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData}`);
+                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData}`);
+                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData}`);
             }
         }
+        return this;
     }
 
     static joinProducts = () => {
         this.data.join.push(`JOIN ${ProductsModel.TABLE_NAME} on ${ProductsModel.TABLE_NAME}.${ProductsModel.ID} = ${TABLE_NAME}.${PRODUCT_ID}`);
         ProductsModel.syncData(this.data);
         return ProductsModel;
-    }
+    };
 }
 
 module.exports = DeliveryModel;

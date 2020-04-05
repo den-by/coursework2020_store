@@ -1,23 +1,17 @@
 class testClass {
 
-    static select = [];
-    static where = [];
-    static join = [];
-    static groupBy = [];
-    static having = [];
-    static tables = [];
-
     static data = {
-        select: this.select,
-        where: this.select,
-        join: this.select,
-        groupBy: this.select,
-        having: this.select,
-        tables: this.select,
+        select: [],
+        where: [],
+        join: [],
+        groupBy: [],
+        having: [],
+        tables: [],
     };
 
     static syncData(data) {
         this.data = data;
+        return this
     }
 
 
@@ -31,8 +25,8 @@ class testClass {
 
     static getAllSelectedField() {
         let select = [];
-        this.tables.unshift(this);
-        this.tables.forEach((tables) => {
+        this.data.tables.unshift(this);
+        this.data.tables.forEach((tables) => {
             let items = tables.getThisSelect();
             select = select.concat(items);
         });
@@ -52,7 +46,7 @@ class testClass {
 
         let sql = `SELECT ${this.getAllSelectedField().join(', ')} FROM ${this.TABLE_NAME}`;
 
-        this.tables = [];
+        this.data.tables = [];
 
         if (this.data.join.length > 0) {
             sql += ` ${this.data.join.join(" ")}`;
@@ -60,22 +54,22 @@ class testClass {
 
         this.data.join = [];
 
-        if (this.where.length > 0) {
-            sql += ` where ${this.where.join(" and ")}`;
+        if (this.data.where.length > 0) {
+            sql += ` where ${this.data.where.join(" and ")}`;
         }
-        this.where = [];
+        this.data.where = [];
 
-        if (this.groupBy.length > 0) {
-            sql += ` group by ${this.groupBy.join(" and ")}`;
-        }
-
-        this.groupBy = [];
-
-        if (this.having.length > 0) {
-            sql += ` having ${this.having.join(" and ")}`;
+        if (this.data.groupBy.length > 0) {
+            sql += ` group by ${this.data.groupBy.join(" and ")}`;
         }
 
-        this.having = [];
+        this.data.groupBy = [];
+
+        if (this.data.having.length > 0) {
+            sql += ` having ${this.data.having.join(" and ")}`;
+        }
+
+        this.data.having = [];
 
         console.log(sql);
         const data = await pool.query(sql);

@@ -28,7 +28,9 @@ class LinksProductsSuppliersModel extends require("./BaseModel") {
     }
 
     static filterByProductId(product_id) {
-        this.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${product_id}`);
+        if(product_id) {
+            this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${product_id}`);
+        }
         return this;
     }
 }
