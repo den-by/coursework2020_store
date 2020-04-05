@@ -7,7 +7,16 @@ class testClass {
         groupBy: [],
         having: [],
         tables: [],
+        limit: null,
     };
+
+    static get FIELDS() {
+        throw new SyntaxError("Данные некорректны");
+    }
+
+    static get TABLE_NAME() {
+        throw new SyntaxError("Данные некорректны");
+    }
 
     static syncData(data) {
         this.data = data;
@@ -17,14 +26,6 @@ class testClass {
     static addToSelectThis() {
         this.data.tables.push(this);
         return this;
-    }
-
-    static get FIELDS() {
-        throw new SyntaxError("Данные некорректны");
-    }
-
-    static get TABLE_NAME() {
-        throw new SyntaxError("Данные некорректны");
     }
 
     static getAllSelectedField() {
@@ -43,6 +44,10 @@ class testClass {
             select.push(`${this.TABLE_NAME}.${field} as ${this.TABLE_NAME}_${field}`);
         });
         return select;
+    }
+
+    static limit(limit) {
+        this.data.limit = limit;
     }
 
     static async getSQL() {
@@ -71,6 +76,10 @@ class testClass {
 
         if (this.data.having.length > 0) {
             sql += ` having ${this.data.having.join(" and ")}`;
+        }
+
+        if (this.data.limit > 0) {
+            sql += ` limit ${this.data.limit}`;
         }
 
         this.data.having = [];

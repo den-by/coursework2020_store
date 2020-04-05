@@ -18,6 +18,10 @@ module.exports = function(app) {
         .get(SuppliersController.getSuppliersAndDeliveryTimeByProduct)
         .post(todoList.create_a_task);
 
+    app.route('/suppliers/top_10')
+        .get(SuppliersController.getTopSuppliers)
+        .post(todoList.create_a_task);
+
     app.route('/products/delivery_defective')
         .get(ProductsController.getDefectedDeliveryByProducts)
         .post(todoList.create_a_task);

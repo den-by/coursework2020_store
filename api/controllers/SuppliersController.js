@@ -17,6 +17,13 @@ class SuppliersController extends require('./BaseController') {
         let data = await suppliersService.getSuppliersAndDeliveryTimeByProduct(req.query[productId]);
         res.render('home', {title: 'Greetings form Handlebars', 'data': data})
     }
+
+    static async getTopSuppliers(req, res) {
+        let data = await suppliersService.getTopSuppliersByProduct(req.query[productId]);
+        res.render('home', {title: 'Greetings form Handlebars', 'data': data})
+    }
+
+
 }
 
 module.exports = SuppliersController;
