@@ -1,5 +1,4 @@
 "use strict";
-const LinksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
 const DeliveryModel = require('../models/DeliveryModel');
 const TABLE_NAME = "suppliers";
 
@@ -41,11 +40,14 @@ class SuppliersModel extends require("./BaseModel") {
     }
 
     static selectPriceDeliveryTime() {
+        const LinksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
+        LinksProductsSuppliersModel.addToSelectThis();
         this.data.tables.push(LinksProductsSuppliersModel);
         return this;
     }
 
     static joinLinkProductsSuppliers() {
+        const LinksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
         this.data.join.push(`LEFT JOIN ${LinksProductsSuppliersModel.TABLE_NAME} on ${LinksProductsSuppliersModel.TABLE_NAME}.${LinksProductsSuppliersModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
         LinksProductsSuppliersModel.syncData(this.data);
         return LinksProductsSuppliersModel

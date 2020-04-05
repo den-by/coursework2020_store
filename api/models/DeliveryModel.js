@@ -44,30 +44,26 @@ class DeliveryModel extends require("./BaseModel") {
         return this;
     }
 
-    static joinProducts () {
+    static joinProducts = () => {
         const ProductsModel = require('../models/ProductsModel');
         this.data.join.push(`JOIN ${ProductsModel.TABLE_NAME} on ${ProductsModel.TABLE_NAME}.${ProductsModel.ID} = ${TABLE_NAME}.${PRODUCT_ID}`);
-        return ProductsModel.syncData(this.data);
-        // return ProductsModel;
+        ProductsModel.syncData(this.data);
+        return ProductsModel;
     };
 
-    static joinSuppliers () {
+    static joinSuppliers = () => {
         const SuppliersModel = require('../models/SuppliersModel');
         this.data.join.push(`JOIN ${SuppliersModel.TABLE_NAME} on ${SuppliersModel.TABLE_NAME}.${SuppliersModel.ID} = ${TABLE_NAME}.${SUPPLIER_ID}`);
-        return SuppliersModel.syncData(this.data);
-        // return SuppliersModel;
+        SuppliersModel.syncData(this.data);
+        return SuppliersModel;
     };
 
-    static selectAggregateCount = () => {
-        this.data.select.push(`count(${TABLE_NAME}.${COUNT}) as aggregate_count`)
-    }
 
-
-    static joinWriteoffs()  {
+    static joinWriteoffs = () => {
         const WriteoffsModel = require('../models/WriteoffsModel');
         this.data.join.push(`JOIN ${WriteoffsModel.TABLE_NAME} on ${WriteoffsModel.TABLE_NAME}.${WriteoffsModel.PRODUCT_ID} = ${TABLE_NAME}.${ID}`);
-        return WriteoffsModel.syncData(this.data);
-        // return WriteoffsModel;
+        WriteoffsModel.syncData(this.data);
+        return WriteoffsModel;
     }
 }
 

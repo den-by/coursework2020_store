@@ -1,5 +1,4 @@
 "use strict";
-// const suppliersModel = require('../models/SuppliersModel');
 const ProductsModel = require('../models/ProductsModel');
 
 class SuppliersService extends require("./BaseService") {
@@ -9,12 +8,9 @@ class SuppliersService extends require("./BaseService") {
 
         const deliveryModel = ProductsModel.groupByIdAndSupplierId().joinDelivery();
         deliveryModel.filterByDelivery(startDate, endDate);
-        deliveryModel.selectAggregateCount();
-        const WriteoffsModel = deliveryModel.joinWriteoffs();
-        const SuppliersModel = deliveryModel.joinSuppliers();
+        const WriteoffsModel = deliveryModel.joinWriteoffs().selectAggregateCount();
+        const SuppliersModel = deliveryModel.joinSuppliers().addToSelectThis();
 
-        // let products = delivery.joinProducts().joinWriteoffs();
-        // suppliersModel.selectPriceDeliveryTime();
         return ProductsModel.getSQL();
 //https://sqlinfo.ru/articles/info/39.html
     };

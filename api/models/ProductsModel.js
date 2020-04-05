@@ -31,17 +31,9 @@ class ProductsModel extends require("./BaseModel") {
 
     static groupByIdAndSupplierId(){
         const SuppliersModel = require('../models/SuppliersModel');
-        this.data.groupBy.push(`${TABLE_NAME}.id, ${SuppliersModel.TABLE_NAME}.${SuppliersModel.ID}`);
+        this.data.groupBy.push(`${TABLE_NAME}.${ID}, ${SuppliersModel.TABLE_NAME}.${SuppliersModel.ID}`);
         return this
     }
-
-
-    // static joinWriteoffs = () => {
-    //     this.data.join.push(`JOIN ${WriteoffsModel.TABLE_NAME} on ${WriteoffsModel.TABLE_NAME}.${WriteoffsModel.PRODUCT_ID} = ${TABLE_NAME}.${ID}`);
-    //     WriteoffsModel.syncData(this.data);
-    //     return WriteoffsModel;
-    // }
-
 }
 
 module.exports = ProductsModel;

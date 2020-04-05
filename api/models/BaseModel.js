@@ -11,9 +11,13 @@ class testClass {
 
     static syncData(data) {
         this.data = data;
-        return this
+        return this;
     }
 
+    static addToSelectThis() {
+        this.data.tables.push(this);
+        return this;
+    }
 
     static get FIELDS() {
         throw new SyntaxError("Данные некорректны");
@@ -24,7 +28,6 @@ class testClass {
     }
 
     static getAllSelectedField() {
-        // let select = [];
         this.data.tables.unshift(this);
         this.data.tables.forEach((tables) => {
             let items = tables.getThisSelect();
