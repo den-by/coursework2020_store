@@ -24,15 +24,19 @@ class ProductsModel extends require("./BaseModel") {
 
     static joinDelivery = () => {
         const DeliveryModel = require('../models/DeliveryModel');
-        this.data.join.push(`JOIN ${DeliveryModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${DeliveryModel.TABLE_NAME}.${DeliveryModel.PRODUCT_ID}`);
+        this.data.join.push(`LEFT JOIN ${DeliveryModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${DeliveryModel.TABLE_NAME}.${DeliveryModel.PRODUCT_ID}`);
         DeliveryModel.syncData(this.data);
         return DeliveryModel;
     };
 
-    static groupByIdAndSupplierId(){
-        const SuppliersModel = require('../models/SuppliersModel');
-        this.data.groupBy.push(`${TABLE_NAME}.${ID}, ${SuppliersModel.TABLE_NAME}.${SuppliersModel.ID}`);
-        return this
+    // static groupByIdAndSupplierId(){
+    //     const SuppliersModel = require('../models/SuppliersModel');
+    //     this.data.groupBy.push(`${TABLE_NAME}.${ID}, ${SuppliersModel.TABLE_NAME}.${SuppliersModel.ID}`);
+    //     return this
+    // }
+    static groupById(){
+        this.data.groupBy.push(`${TABLE_NAME}.${ID}`);
+        return this;
     }
 }
 

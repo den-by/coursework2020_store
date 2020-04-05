@@ -70,7 +70,7 @@ class testClass {
         this.data.where = [];
 
         if (this.data.groupBy.length > 0) {
-            sql += ` group by ${this.data.groupBy.join(" and ")}`;
+            sql += ` group by ${this.data.groupBy.join(", ")}`;
         }
         this.data.groupBy = [];
 
@@ -80,7 +80,7 @@ class testClass {
         this.data.having = [];
 
         if (this.data.orderBy.length > 0) {
-            sql += ` order by ${this.data.orderBy.join(" and ")}`;
+            sql += ` order by ${this.data.orderBy.join(", ")}`;
         }
         this.data.orderBy = [];
 

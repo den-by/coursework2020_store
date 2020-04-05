@@ -64,7 +64,14 @@ class DeliveryModel extends require("./BaseModel") {
         this.data.join.push(`JOIN ${WriteoffsModel.TABLE_NAME} on ${WriteoffsModel.TABLE_NAME}.${WriteoffsModel.PRODUCT_ID} = ${TABLE_NAME}.${ID}`);
         WriteoffsModel.syncData(this.data);
         return WriteoffsModel;
-    }
+    };
+
+    static joinLinksOrdersProducts = () => {
+        const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
+        this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.PRODUCT_ID}`);
+        linksOrdersProductsModel.syncData(this.data);
+        return linksOrdersProductsModel;
+    };
 }
 
 module.exports = DeliveryModel;

@@ -6,17 +6,17 @@ class SuppliersService extends require("./BaseService") {
 
     static async getDefectedDeliveryByProducts(startDate, endDate) {
 
-        const deliveryModel = ProductsModel.groupByIdAndSupplierId().joinDelivery();
+        const deliveryModel = ProductsModel.groupById().joinDelivery();
         deliveryModel.filterByDelivery(startDate, endDate);
         const WriteoffsModel = deliveryModel.joinWriteoffs().selectAggregateCount();
-        const SuppliersModel = deliveryModel.joinSuppliers().selectTable();
+        const SuppliersModel = deliveryModel.joinSuppliers().selectTable().groupById();
 
         return ProductsModel.getSQL();
     };
 
     static async getTopProducts() {
-
-        ProductsModel.limit(10);
+        const deliveryModel = ProductsModel.limit(10).groupById().joinDelivery();
+        const linksOrdersProducts = deliveryModel.joinLinksOrdersProducts();
         return ProductsModel.getSQL();
     };
 

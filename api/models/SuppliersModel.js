@@ -66,6 +66,11 @@ class SuppliersModel extends require("./BaseModel") {
         }
         return this
     }
+
+    static groupById(){
+        this.data.groupBy.push(`${TABLE_NAME}.${ID}`);
+        return this
+    }
 }
 
 module.exports = SuppliersModel;
