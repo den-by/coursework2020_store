@@ -1,16 +1,18 @@
 "use strict";
-const suppliersModel = require('../models/SuppliersModel');
+// const suppliersModel = require('../models/SuppliersModel');
+const ProductsModel = require('../models/ProductsModel');
 
 class SuppliersService extends require("./BaseService") {
 
 
     static async getDefectedDeliveryByProducts(startDate, endDate) {
-        let delivery = suppliersModel.joinDelivery();
-        let products = delivery.joinProducts().joinWriteoffs();
+
+        // let delivery = suppliersModel.joinDelivery();
+        // let products = delivery.joinProducts().joinWriteoffs();
 
 
         // suppliersModel.selectPriceDeliveryTime();
-        return suppliersModel.getSQL();
+        return ProductsModel.getSQL();
 //https://sqlinfo.ru/articles/info/39.html
     };
 

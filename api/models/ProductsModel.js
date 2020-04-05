@@ -1,7 +1,7 @@
 "use strict";
 const TABLE_NAME = "products";
 const ID = 'id';
-const PRODUCT_ID = "product_id";
+const PRODUCT_ID = "id";
 const PRODUCT_DESCRIPTION = "description";
 const SELLING_PRICE = 'selling_prise';
 const FIELDS = [
