@@ -25,18 +25,18 @@ class SuppliersModel extends require("./BaseModel") {
         return SUPPLIER_TYPE_ID;
     }
 
-    static getByType(req) {
-        this.joinSupplierType();
-
-        if (req.query[SUPPLIER_TYPE_ID]) {
-            this.filterBySupplierType(req);
-        }
-        this.filterByProductId(req);
-
-        this.filterByDelivery(req);
-
-        return this.getSQL();
-    };
+    // static getByType(req) {
+    //     this.joinSupplierType();
+    //
+    //     if (req.query[SUPPLIER_TYPE_ID]) {
+    //         this.filterBySupplierType(req);
+    //     }
+    //     this.filterByProductId(req);
+    //
+    //     this.filterByDelivery(req);
+    //
+    //     return this.getSQL();
+    // };
 
     static filterBySupplierType(supplier_type_id) {
         if (supplier_type_id) {
@@ -50,14 +50,6 @@ class SuppliersModel extends require("./BaseModel") {
         return this;
     }
 
-    static filterByProductId(product_id) {
-        this.joinLinkProductsSuppliers();
-        if (product_id) {
-            LinksProductsSuppliersModel.filterByProductId.call(this, product_id);
-        }
-        return this;
-    }
-
     static selectPriceDeliveryTime() {
         this.tables.push(LinksProductsSuppliersModel);
         return this;
@@ -65,7 +57,7 @@ class SuppliersModel extends require("./BaseModel") {
 
     static joinLinkProductsSuppliers() {
         this.data.join.push(`JOIN ${LinksProductsSuppliersModel.TABLE_NAME} on ${LinksProductsSuppliersModel.TABLE_NAME}.${LinksProductsSuppliersModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
-        return this
+        return LinksProductsSuppliersModel
     }
 
     static filterByDelivery(startData, endData, minValue, productId) {

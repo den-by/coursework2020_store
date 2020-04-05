@@ -11,7 +11,7 @@ module.exports = function(app) {
         .post(todoList.create_a_task);
 
     app.route('/suppliers')
-        .get(SuppliersController.list_all_suppliers)
+        .get(SuppliersController.listAllSuppliers)
         .post(todoList.create_a_task);
 
     app.route('/suppliers/delivery_time')

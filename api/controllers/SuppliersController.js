@@ -8,7 +8,7 @@ const DELIVERYS_PRODUCT_ID = 'deliverys.product_id';
 
 class SuppliersController extends require('./BaseController') {
 
-    static async list_all_suppliers(req, res) {
+    static async listAllSuppliers(req, res) {
         const suppliers = await suppliersService.getByTypeIdProductIdDelivery(req.query[supplierTypeId], req.query[productId], req.query[START_DATE], req.query[END_DATE], req.query[MIN_VALUE], req.query[DELIVERYS_PRODUCT_ID]);
         res.render('home', {title: 'Greetings form Handlebars', 'data': suppliers})
     }
