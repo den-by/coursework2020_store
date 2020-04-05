@@ -6,6 +6,7 @@ const ORDERS_ID = "orders_id";
 const PRICE = 'price';
 const COUNT = 'count';
 const DELIVERY_HOUR = 'delivery_hour';
+const AGGREGATE_COUNT = 'AggregateCount';
 const FIELDS = [
     ID, ORDERS_ID, PRODUCT_ID, PRICE, DELIVERY_HOUR, COUNT
 ];
@@ -31,6 +32,17 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
     static get COUNT() {
         return COUNT;
     }
+
+    static selectAggregateCount = () => {
+        this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) as ${AGGREGATE_COUNT}`);
+        return this;
+    };
+
+    static orderByAggregateCount = () => {
+        this.data.orderBy.push(`${AGGREGATE_COUNT} desc`);
+        return this;
+    };
+
 
     // static filterByProductId(product_id) {
     //     if (product_id) {
