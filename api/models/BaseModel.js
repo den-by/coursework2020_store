@@ -24,14 +24,14 @@ class testClass {
     }
 
     static getAllSelectedField() {
-        let select = [];
+        // let select = [];
         this.data.tables.unshift(this);
         this.data.tables.forEach((tables) => {
             let items = tables.getThisSelect();
-            select = select.concat(items);
+            this.data.select = this.data.select.concat(items);
         });
 
-        return select;
+        return this.data.select;
     }
 
     static getThisSelect() {
@@ -47,6 +47,7 @@ class testClass {
         let sql = `SELECT ${this.getAllSelectedField().join(', ')} FROM ${this.TABLE_NAME}`;
 
         this.data.tables = [];
+        this.data.select = [];
 
         if (this.data.join.length > 0) {
             sql += ` ${this.data.join.join(" ")}`;

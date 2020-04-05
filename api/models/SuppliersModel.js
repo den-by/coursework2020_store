@@ -24,6 +24,10 @@ class SuppliersModel extends require("./BaseModel") {
         return SUPPLIER_TYPE_ID;
     }
 
+    static get ID() {
+        return ID;
+    }
+
     static filterBySupplierType(supplier_type_id) {
         if (supplier_type_id) {
             this.data.where.push(`${TABLE_NAME}.${SUPPLIER_TYPE_ID} = ${supplier_type_id}`);
