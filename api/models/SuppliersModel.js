@@ -41,7 +41,7 @@ class SuppliersModel extends require("./BaseModel") {
 
     static selectPriceDeliveryTime() {
         const LinksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
-        LinksProductsSuppliersModel.addToSelectThis();
+        LinksProductsSuppliersModel.selectTable();
         this.data.tables.push(LinksProductsSuppliersModel);
         return this;
     }

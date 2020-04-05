@@ -7,6 +7,7 @@ class testClass {
         groupBy: [],
         having: [],
         tables: [],
+        orderBy: [],
         limit: null,
     };
 
@@ -23,7 +24,7 @@ class testClass {
         return this;
     }
 
-    static addToSelectThis() {
+    static selectTable() {
         this.data.tables.push(this);
         return this;
     }
@@ -48,6 +49,7 @@ class testClass {
 
     static limit(limit) {
         this.data.limit = limit;
+        return this;
     }
 
     static async getSQL() {
@@ -60,7 +62,6 @@ class testClass {
         if (this.data.join.length > 0) {
             sql += ` ${this.data.join.join(" ")}`;
         }
-
         this.data.join = [];
 
         if (this.data.where.length > 0) {
@@ -71,18 +72,22 @@ class testClass {
         if (this.data.groupBy.length > 0) {
             sql += ` group by ${this.data.groupBy.join(" and ")}`;
         }
-
         this.data.groupBy = [];
 
         if (this.data.having.length > 0) {
             sql += ` having ${this.data.having.join(" and ")}`;
         }
+        this.data.having = [];
+
+        if (this.data.orderBy.length > 0) {
+            sql += ` order by ${this.data.orderBy.join(" and ")}`;
+        }
+        this.data.orderBy = [];
 
         if (this.data.limit > 0) {
             sql += ` limit ${this.data.limit}`;
         }
-
-        this.data.having = [];
+        this.data.limit = null;
 
         console.log(sql);
         const data = await pool.query(sql);

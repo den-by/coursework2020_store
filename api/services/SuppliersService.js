@@ -16,7 +16,7 @@ class SuppliersService extends require("./BaseService") {
     };
 
     static async getTopSuppliersByProduct(productId) {
-        suppliersModel.joinLinkProductsSuppliers().filterByProductId(productId);
+        suppliersModel.joinLinkProductsSuppliers().filterByProductId(productId).orderByPrice().selectTable();
         suppliersModel.limit(10);
         return suppliersModel.getSQL();
     };

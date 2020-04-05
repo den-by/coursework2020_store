@@ -26,6 +26,10 @@ module.exports = function(app) {
         .get(ProductsController.getDefectedDeliveryByProducts)
         .post(todoList.create_a_task);
 
+    app.route('/products/top_10')
+        .get(ProductsController.getTopProducts)
+        .post(todoList.create_a_task);
+
     app.route('/tasks/:taskId')
         .get(todoList.read_a_task)
         .put(todoList.update_a_task)

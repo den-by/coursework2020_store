@@ -9,10 +9,15 @@ class SuppliersService extends require("./BaseService") {
         const deliveryModel = ProductsModel.groupByIdAndSupplierId().joinDelivery();
         deliveryModel.filterByDelivery(startDate, endDate);
         const WriteoffsModel = deliveryModel.joinWriteoffs().selectAggregateCount();
-        const SuppliersModel = deliveryModel.joinSuppliers().addToSelectThis();
+        const SuppliersModel = deliveryModel.joinSuppliers().selectTable();
 
         return ProductsModel.getSQL();
-//https://sqlinfo.ru/articles/info/39.html
+    };
+
+    static async getTopProducts() {
+
+        ProductsModel.limit(10);
+        return ProductsModel.getSQL();
     };
 
 }
