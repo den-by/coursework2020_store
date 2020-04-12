@@ -2,7 +2,7 @@
 const TABLE_NAME = "links_orders_products";
 const ID = 'id';
 const PRODUCT_ID = "product_id";
-const ORDERS_ID = "orders_id";
+const ORDERS_ID = "order_id";
 const PRICE = 'price';
 const COUNT = 'count';
 const DELIVERY_HOUR = 'delivery_hour';
@@ -44,12 +44,12 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
     };
 
 
-    // static filterByProductId(product_id) {
-    //     if (product_id) {
-    //         this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${product_id}`);
-    //     }
-    //     return this;
-    // }
+    static filterByProductId(product_id) {
+        if (product_id) {
+            this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${product_id}`);
+        }
+        return this;
+    }
     //
     // static orderByPrice() {
     //     this.data.orderBy.push(`${TABLE_NAME}.${PURCHASE_PRICE} ASC`);

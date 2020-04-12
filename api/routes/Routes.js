@@ -1,33 +1,36 @@
 'use strict';
 module.exports = function(app) {
     var todoList = require('../controllers/todoListController');
-    const SuppliersController = require("../controllers/SuppliersController");
-    const ProductsController = require("../controllers/ProductsController");
+    const suppliersController = require("../controllers/SuppliersController");
+    const productsController = require("../controllers/ProductsController");
+    const clientController = require("../controllers/ClientController")
 
-
-    // todoList Routes
     app.route('/tasks')
         .get(todoList.list_all_tasks)
         .post(todoList.create_a_task);
 
     app.route('/suppliers')
-        .get(SuppliersController.listAllSuppliers)
+        .get(suppliersController.listAllSuppliers)
         .post(todoList.create_a_task);
 
     app.route('/suppliers/delivery_time')
-        .get(SuppliersController.getSuppliersAndDeliveryTimeByProduct)
+        .get(suppliersController.getSuppliersAndDeliveryTimeByProduct)
         .post(todoList.create_a_task);
 
     app.route('/suppliers/top_10')
-        .get(SuppliersController.getTopSuppliers)
+        .get(suppliersController.getTopSuppliers)
         .post(todoList.create_a_task);
 
     app.route('/products/delivery_defective')
-        .get(ProductsController.getDefectedDeliveryByProducts)
+        .get(productsController.getDefectedDeliveryByProducts)
         .post(todoList.create_a_task);
 
     app.route('/products/top_10')
-        .get(ProductsController.getTopProducts)
+        .get(productsController.getTopProducts)
+        .post(todoList.create_a_task);
+
+    app.route('/clients/client_and_count')
+        .get(clientController.clientAndCount)
         .post(todoList.create_a_task);
 
     app.route('/tasks/:taskId')

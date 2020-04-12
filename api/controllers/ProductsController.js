@@ -2,7 +2,7 @@ const ProductsService = require('../services/ProductsService');
 const START_DATE = 'start_date';
 const END_DATE = 'end_date';
 
-class SuppliersController extends require('./BaseController') {
+class ProductsController extends require('./BaseController') {
 
     static async getDefectedDeliveryByProducts(req, res) {
         let data = await ProductsService.getDefectedDeliveryByProducts(req.query[START_DATE],req.query[END_DATE]);
@@ -15,4 +15,4 @@ class SuppliersController extends require('./BaseController') {
     }
 }
 
-module.exports = SuppliersController;
+module.exports = ProductsController;
