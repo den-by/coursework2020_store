@@ -22,12 +22,20 @@ class ProductsModel extends require("./BaseModel") {
         return TABLE_NAME;
     }
 
-    static joinDelivery = () => {
-        const DeliveryModel = require('../models/DeliveryModel');
-        this.data.join.push(`LEFT JOIN ${DeliveryModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${DeliveryModel.TABLE_NAME}.${DeliveryModel.PRODUCT_ID}`);
-        DeliveryModel.syncData(this.data);
-        return DeliveryModel;
-    };
+    static joinDelivery() {
+        const deliveryModel = require('../models/DeliveryModel');
+        this.data.join.push(`LEFT JOIN ${deliveryModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${deliveryModel.TABLE_NAME}.${deliveryModel.PRODUCT_ID}`);
+        deliveryModel.syncData(this.data);
+        return deliveryModel;
+    }
+
+    static joinLinksOrdersProducts() {
+        const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
+        this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.PRODUCT_ID}`);
+        linksOrdersProductsModel.syncData(this.data);
+        return linksOrdersProductsModel;
+    }
+
 
     // static groupByIdAndSupplierId(){
     //     const SuppliersModel = require('../models/SuppliersModel');

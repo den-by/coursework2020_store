@@ -13,6 +13,11 @@ class ProductsController extends require('./BaseController') {
         let data = await ProductsService.getTopProducts();
         res.render('home', {title: 'Greetings form Handlebars', 'data': data})
     }
+
+    static async getAverageSale(req, res) {
+        let data = await ProductsService.getProductsAndAverageSale();
+        res.render('home', {title: 'Greetings form Handlebars', 'data': data})
+    }
 }
 
 module.exports = ProductsController;

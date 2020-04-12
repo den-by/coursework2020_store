@@ -14,11 +14,20 @@ class SuppliersService extends require("./BaseService") {
         return ProductsModel.getSQL();
     };
 
+
     static async getTopProducts() {
         const deliveryModel = ProductsModel.limit(10).groupById().joinDelivery();
-        const linksOrdersProducts = deliveryModel.joinLinksOrdersProducts().selectSumCount().orderByAggregateCount();
+        const linksOrdersProducts = deliveryModel.joinLinksOrdersProducts().selectSumCount().orderBySumCount();
         return ProductsModel.getSQL();
     };
+
+    static async getProductsAndAverageSale() {
+         ProductsModel.groupById();
+        const linksOrdersProducts = ProductsModel.joinLinksOrdersProducts().selectAverageCountBYMonth();
+        return ProductsModel.getSQL();
+    };
+
+
 
 }
 

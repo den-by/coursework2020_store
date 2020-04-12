@@ -6,6 +6,7 @@ const ORDERS_ID = "order_id";
 const PRICE = 'price';
 const COUNT = 'count';
 const DELIVERY_HOUR = 'delivery_hour';
+const AVERAGE_COUNT_BY_MONTH = 'average_count_by_month';
 const SUM_COUNT = 'sum_count';
 const FIELDS = [
     ID, ORDERS_ID, PRODUCT_ID, PRICE, DELIVERY_HOUR, COUNT
@@ -36,12 +37,17 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
     static selectSumCount() {
         this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) as ${SUM_COUNT}`);
         return this;
-    };
+    }
 
-    static orderByAggregateCount() {
+    static selectAverageCountBYMonth(monthLeft = 3) {
+        this.data.select.push(`ROUND( sum(${TABLE_NAME}.${COUNT}) / ${monthLeft}, 0) as ${AVERAGE_COUNT_BY_MONTH}`);
+        return this;
+    }
+
+    static orderBySumCount() {
         this.data.orderBy.push(`${SUM_COUNT} desc`);
         return this;
-    };
+    }
 
 
     static filterByProductId(productId) {
