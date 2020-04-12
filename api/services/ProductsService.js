@@ -16,7 +16,7 @@ class SuppliersService extends require("./BaseService") {
 
     static async getTopProducts() {
         const deliveryModel = ProductsModel.limit(10).groupById().joinDelivery();
-        const linksOrdersProducts = deliveryModel.joinLinksOrdersProducts().selectAggregateCount().orderByAggregateCount();
+        const linksOrdersProducts = deliveryModel.joinLinksOrdersProducts().selectSumCount().orderByAggregateCount();
         return ProductsModel.getSQL();
     };
 

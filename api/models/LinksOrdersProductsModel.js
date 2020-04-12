@@ -6,7 +6,7 @@ const ORDERS_ID = "order_id";
 const PRICE = 'price';
 const COUNT = 'count';
 const DELIVERY_HOUR = 'delivery_hour';
-const AGGREGATE_COUNT = 'AggregateCount';
+const SUM_COUNT = 'sum_count';
 const FIELDS = [
     ID, ORDERS_ID, PRODUCT_ID, PRICE, DELIVERY_HOUR, COUNT
 ];
@@ -33,29 +33,30 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         return COUNT;
     }
 
-    static selectAggregateCount = () => {
-        this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) as ${AGGREGATE_COUNT}`);
+    static selectSumCount() {
+        this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) as ${SUM_COUNT}`);
         return this;
     };
 
-    static orderByAggregateCount = () => {
-        this.data.orderBy.push(`${AGGREGATE_COUNT} desc`);
+    static orderByAggregateCount() {
+        this.data.orderBy.push(`${SUM_COUNT} desc`);
         return this;
     };
 
 
-    static filterByProductId(product_id) {
-        if (product_id) {
-            this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${product_id}`);
+    static filterByProductId(productId) {
+        if (productId) {
+            this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${productId}`);
         }
         return this;
     }
-    //
-    // static orderByPrice() {
-    //     this.data.orderBy.push(`${TABLE_NAME}.${PURCHASE_PRICE} ASC`);
-    //     return this;
-    // }
 
+    static filterByMinSumCount(minCount) {
+        if (minCount) {
+             this.data.having.push(`sum(${TABLE_NAME}.${COUNT}) > ${minCount}`);
+        }
+        return this;
+    }
 }
 
 module.exports = LinksOrdersProductsModel;

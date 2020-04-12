@@ -21,6 +21,11 @@ class ClientsModel extends require("./BaseModel") {
         return ID;
     }
 
+    static groupById() {
+        this.data.groupBy.push(`${TABLE_NAME}.${ID}`);
+        return this;
+    }
+
     static joinOrders() {
         const OrdersModel = require('../models/OrdersModel');
         this.data.join.push(`LEFT JOIN ${OrdersModel.TABLE_NAME} on ${OrdersModel.TABLE_NAME}.${OrdersModel.CLIENT_ID} = ${TABLE_NAME}.${ID}`);
