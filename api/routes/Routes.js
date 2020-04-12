@@ -19,6 +19,9 @@ module.exports = function(app) {
     app.route('/suppliers/top_10')
         .get(suppliersController.getTopSuppliers);
 
+    app.route('/suppliers/profit')
+        .get(suppliersController.getProfit);
+
     app.route('/products/delivery_defective')
         .get(productsController.getDefectedDeliveryByProducts);
 

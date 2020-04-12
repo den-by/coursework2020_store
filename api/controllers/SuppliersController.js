@@ -23,6 +23,11 @@ class SuppliersController extends require('./BaseController') {
         res.render('home', {title: 'Greetings form Handlebars', 'data': data})
     }
 
+    static async getProfit(req, res) {
+        let data = await suppliersService.getSuppliersAndProfit(req.query[START_DATE], req.query[END_DATE]);
+        res.render('home', {title: 'Greetings form Handlebars', 'data': data})
+    }
+
 
 }
 
