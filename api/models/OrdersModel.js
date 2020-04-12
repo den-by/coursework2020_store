@@ -9,7 +9,7 @@ const FIELDS = [
     ID, CLIENT_ID, NAME, DATE_ADD
 ];
 
-class ClientsModel extends require("./BaseModel") {
+class OrdersModel extends require("./BaseModel") {
 
     static get FIELDS() {
         return FIELDS;
@@ -45,4 +45,4 @@ class ClientsModel extends require("./BaseModel") {
     }
 }
 
-module.exports = ClientsModel;
+module.exports = OrdersModel;

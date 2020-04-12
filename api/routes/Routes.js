@@ -1,9 +1,10 @@
 'use strict';
 module.exports = function(app) {
-    var todoList = require('../controllers/todoListController');
+    const todoList = require('../controllers/todoListController');
     const suppliersController = require("../controllers/SuppliersController");
     const productsController = require("../controllers/ProductsController");
     const clientController = require("../controllers/ClientController");
+    const cashReportController = require("../controllers/CashReportController");
 
     app.route('/tasks')
         .get(todoList.list_all_tasks)
@@ -29,6 +30,9 @@ module.exports = function(app) {
 
     app.route('/products/by_day')
         .get(productsController.getSelProductsByDay);
+
+    app.route('/cash_report')
+        .get(cashReportController.get);
 
     app.route('/clients/client_and_count')
         .get(clientController.clientAndCount);

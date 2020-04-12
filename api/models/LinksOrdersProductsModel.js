@@ -7,12 +7,11 @@ const PRICE = 'price';
 const TOTAL_PRICE = 'total_price';
 const DATE_ADD = 'date_add';
 const COUNT = 'count';
-const DELIVERY_HOUR = 'delivery_hour';
 const AVERAGE_COUNT_BY_MONTH = 'average_count_by_month';
 const SUM_COUNT = 'sum_count';
 const SUM_TOTAL_PRICE = 'sum_total_price';
 const FIELDS = [
-    ID, ORDERS_ID, PRODUCT_ID, PRICE, DELIVERY_HOUR, COUNT
+    ID, ORDERS_ID, PRODUCT_ID, PRICE, COUNT, DATE_ADD
 ];
 
 class LinksOrdersProductsModel extends require("./BaseModel") {
@@ -31,10 +30,6 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
 
     static get TABLE_NAME() {
         return TABLE_NAME;
-    }
-
-    static get COUNT() {
-        return COUNT;
     }
 
     static selectSumCount() {
@@ -67,7 +62,7 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
 
     static filterByMinSumCount(minCount) {
         if (minCount) {
-             this.data.having.push(`sum(${TABLE_NAME}.${COUNT}) > ${minCount}`);
+            this.data.having.push(`sum(${TABLE_NAME}.${COUNT}) > ${minCount}`);
         }
         return this;
     }
@@ -78,6 +73,30 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
             this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${startDate} + INTERVAL 1 DAY`);
         }
         return this;
+    }
+
+    static filterByDate(startDate, endDate) {
+        if (startDate) {
+            this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startDate}`);
+        }
+        if (endDate) {
+            this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endDate}`);
+        }
+        return this;
+    }
+
+    static joinOrders() {
+        const ordersModel = require('../models/OrdersModel');
+        this.data.join.push(`LEFT JOIN ${ordersModel.TABLE_NAME} on ${ordersModel.TABLE_NAME}.${ordersModel.ID} = ${TABLE_NAME}.${ORDERS_ID}`);
+        ordersModel.syncData(this.data);
+        return ordersModel
+    }
+
+    static joinProducts() {
+        const productsModel = require('../models/ProductsModel');
+        this.data.join.push(`LEFT JOIN ${productsModel.TABLE_NAME} on ${productsModel.TABLE_NAME}.${productsModel.ID} = ${TABLE_NAME}.${PRODUCT_ID}`);
+        productsModel.syncData(this.data);
+        return productsModel
     }
 }
 
