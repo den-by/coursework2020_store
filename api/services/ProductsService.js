@@ -1,34 +1,40 @@
 "use strict";
-const ProductsModel = require('../models/ProductsModel');
+const productsModel = require('../models/ProductsModel');
 
-class SuppliersService extends require("./BaseService") {
+class ProductsService extends require("./BaseService") {
 
 
     static async getDefectedDeliveryByProducts(startDate, endDate) {
 
-        const deliveryModel = ProductsModel.groupById().joinDelivery();
+        const deliveryModel = productsModel.groupById().joinDelivery();
         deliveryModel.filterByDelivery(startDate, endDate);
-        const WriteoffsModel = deliveryModel.joinWriteoffs().selectAggregateCount();
-        const SuppliersModel = deliveryModel.joinSuppliers().selectTable().groupById();
+        deliveryModel.joinWriteoffs().selectAggregateCount();
+        deliveryModel.joinSuppliers().selectTable().groupById();
 
-        return ProductsModel.getSQL();
+        return productsModel.getSQL();
     };
 
 
     static async getTopProducts() {
-        const deliveryModel = ProductsModel.limit(10).groupById().joinDelivery();
-        const linksOrdersProducts = deliveryModel.joinLinksOrdersProducts().selectSumCount().orderBySumCount();
-        return ProductsModel.getSQL();
+        const deliveryModel = productsModel.limit(10).groupById().joinDelivery();
+        deliveryModel.joinLinksOrdersProducts().selectSumCount().orderBySumCount();
+
+        return productsModel.getSQL();
     };
 
     static async getProductsAndAverageSale() {
-         ProductsModel.groupById();
-        const linksOrdersProducts = ProductsModel.joinLinksOrdersProducts().selectAverageCountBYMonth();
-        return ProductsModel.getSQL();
+        productsModel.groupById();
+        productsModel.joinLinksOrdersProducts().selectAverageCountBYMonth();
+
+        return productsModel.getSQL();
     };
 
+    static async getSelProductsByDay(startDate) {
+        productsModel.groupById();
+        productsModel.joinLinksOrdersProducts().filterByDay(startDate).selectSumCount().selectSumTotalPrice();
 
-
+        return productsModel.getSQL();
+    };
 }
 
-module.exports = SuppliersService;
+module.exports = ProductsService;

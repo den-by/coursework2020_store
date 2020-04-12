@@ -36,12 +36,6 @@ class ProductsModel extends require("./BaseModel") {
         return linksOrdersProductsModel;
     }
 
-
-    // static groupByIdAndSupplierId(){
-    //     const SuppliersModel = require('../models/SuppliersModel');
-    //     this.data.groupBy.push(`${TABLE_NAME}.${ID}, ${SuppliersModel.TABLE_NAME}.${SuppliersModel.ID}`);
-    //     return this
-    // }
     static groupById(){
         this.data.groupBy.push(`${TABLE_NAME}.${ID}`);
         return this;

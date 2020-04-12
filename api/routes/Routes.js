@@ -27,6 +27,9 @@ module.exports = function(app) {
     app.route('/products/average_sale')
         .get(productsController.getAverageSale);
 
+    app.route('/products/by_day')
+        .get(productsController.getSelProductsByDay);
+
     app.route('/clients/client_and_count')
         .get(clientController.clientAndCount);
 
