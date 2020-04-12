@@ -8,6 +8,7 @@ const TOTAL_PRICE = 'total_price';
 const DATE_ADD = 'date_add';
 const COUNT = 'count';
 const AVERAGE_COUNT_BY_MONTH = 'average_count_by_month';
+const AVERAGE_TOTAL_PRICE_BY_MONTH = 'average_total_price_by_month';
 const SUM_COUNT = 'sum_count';
 const SUM_TOTAL_PRICE = 'sum_total_price';
 const FIELDS = [
@@ -42,8 +43,19 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         return this;
     }
 
-    static selectAverageCountBYMonth(monthLeft = 3) {
-        this.data.select.push(`ROUND( sum(${TABLE_NAME}.${COUNT}) / ${monthLeft}, 0) as ${AVERAGE_COUNT_BY_MONTH}`);
+    static selectAverageCountBYMonth(numberOfMonthsPassed) {
+        this.data.select.push(`ROUND( sum(${TABLE_NAME}.${COUNT}) / ${numberOfMonthsPassed}, 0) as ${AVERAGE_COUNT_BY_MONTH}`);
+        return this;
+    }
+
+
+    static selectAverageTotalPriceByMonth(numberOfMonthsPassed) {
+        this.data.select.push(`ROUND( sum(${TABLE_NAME}.${TOTAL_PRICE}) / ${numberOfMonthsPassed}, 0) as ${AVERAGE_TOTAL_PRICE_BY_MONTH}`);
+        return this;
+    }
+
+    static filterByNumberOfMonthsPassed(numberOfMonthsPassed) {
+        this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > NOW() - INTERVAL ${numberOfMonthsPassed} MONTH`);
         return this;
     }
 

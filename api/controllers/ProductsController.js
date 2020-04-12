@@ -1,6 +1,7 @@
 const productsService = require('../services/ProductsService');
 const START_DATE = 'start_date';
 const END_DATE = 'end_date';
+const MONTH_COUNT = 'month_count';
 
 class ProductsController extends require('./BaseController') {
 
@@ -15,7 +16,7 @@ class ProductsController extends require('./BaseController') {
     }
 
     static async getAverageSale(req, res) {
-        let data = await productsService.getProductsAndAverageSale();
+        let data = await productsService.getProductsAndAverageSale(req.query[MONTH_COUNT]);
         res.render('home', {title: 'Greetings form Handlebars', 'data': data})
     }
 

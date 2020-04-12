@@ -22,9 +22,9 @@ class ProductsService extends require("./BaseService") {
         return productsModel.getSQL();
     };
 
-    static async getProductsAndAverageSale() {
+    static async getProductsAndAverageSale(numberOfMonthsPassed  = 3) {
         productsModel.groupById();
-        productsModel.joinLinksOrdersProducts().selectAverageCountBYMonth();
+        productsModel.joinLinksOrdersProducts().filterByNumberOfMonthsPassed(numberOfMonthsPassed).selectAverageCountBYMonth(numberOfMonthsPassed).selectAverageTotalPriceByMonth(numberOfMonthsPassed);
 
         return productsModel.getSQL();
     };
