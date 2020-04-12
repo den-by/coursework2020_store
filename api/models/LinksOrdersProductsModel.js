@@ -52,6 +52,11 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         return this;
     }
 
+    static orderByDateAdd() {
+        this.data.orderBy.push(`${DATE_ADD} asc`);
+        return this;
+    }
+
 
     static filterByProductId(productId) {
         if (productId) {

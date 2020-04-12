@@ -6,11 +6,8 @@ class CashReportService extends require("./BaseService") {
 
     static async getCashReportByDate(startDate, endDate) {
 
-        const productsModel = linksOrdersProductsModel.filterByDate(startDate,endDate).joinProducts();
+        const productsModel = linksOrdersProductsModel.filterByDate(startDate,endDate).orderByDateAdd().joinProducts();
         productsModel.getAllSelectedField();
-        // deliveryModel.filterByDelivery(startDate, endDate);
-        // deliveryModel.joinWriteoffs().selectAggregateCount();
-        // deliveryModel.joinSuppliers().selectTable().groupById();
 
         return linksOrdersProductsModel.getSQL();
     };
