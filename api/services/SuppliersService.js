@@ -20,7 +20,10 @@ class SuppliersService extends require("./BaseService") {
         return suppliersModel.getSQL();
     };
 
-    static async getSuppliersAndProfit(startData, endData) {
+    static async getSuppliersAndProfit(startDate, endDate) {
+        suppliersModel.groupById().joinDelivery().joinLinksOrdersProductsByStartDateAndEndDate(startDate, endDate).
+        selectSumCount().selectSumTotalPrice().
+        selectPercentSumTotalPrice().selectPercentSumCount();
         return suppliersModel.getSQL();
     };
 

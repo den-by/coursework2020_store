@@ -5,6 +5,8 @@ const PRODUCT_ID = "product_id";
 const ORDERS_ID = "order_id";
 const PRICE = 'price';
 const TOTAL_PRICE = 'total_price';
+const PERCENT_TOTAL_PRICE = 'percent_total_price';
+const PERCENT_COUNT = 'percent_count';
 const DATE_ADD = 'date_add';
 const COUNT = 'count';
 const AVERAGE_COUNT_BY_MONTH = 'average_count_by_month';
@@ -25,6 +27,10 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         return PRODUCT_ID;
     }
 
+    static get DATE_ADD() {
+        return DATE_ADD;
+    }
+
     static get FIELDS() {
         return FIELDS;
     }
@@ -40,6 +46,16 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
 
     static selectSumTotalPrice() {
         this.data.select.push(`sum(${TABLE_NAME}.${TOTAL_PRICE}) as ${SUM_TOTAL_PRICE}`);
+        return this;
+    }
+
+    static selectPercentSumTotalPrice(){
+        this.data.select.push(`sum(${TABLE_NAME}.${TOTAL_PRICE}) / (select sum(${TABLE_NAME}.${TOTAL_PRICE}) from ${TABLE_NAME}) * 100 as  ${PERCENT_TOTAL_PRICE}`);
+        return this;
+    }
+
+    static selectPercentSumCount(){
+        this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) / (select sum(${TABLE_NAME}.${COUNT}) from ${TABLE_NAME}) * 100 as  ${PERCENT_COUNT}`);
         return this;
     }
 
