@@ -1,4 +1,5 @@
 const suppliersService = require('../services/SuppliersService');
+const linksOrdersProductsService = require('../services/LinksOrdersProductsService');
 const supplierTypeId = 'supplier_type_id';
 const productId = 'product_id';
 const START_DATE = 'start_date';
@@ -24,8 +25,10 @@ class SuppliersController extends require('./BaseController') {
     }
 
     static async getProfit(req, res) {
+
+        const  {sum_count: sum_count ,sum_total_price : sum_total_price} = (await linksOrdersProductsService.getSumCountAndTotalPrice(req.query[START_DATE], req.query[END_DATE]))[0];
         // getSumCountAndTotalPrice
-        let data = await suppliersService.getSuppliersAndProfit(req.query[START_DATE], req.query[END_DATE]);
+        let data = await suppliersService.getSuppliersAndProfit(req.query[START_DATE], req.query[END_DATE], sum_count , sum_total_price);
         res.render('home', {title: 'Greetings form Handlebars', 'data': data})
     }
 

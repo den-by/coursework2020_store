@@ -1,4 +1,4 @@
-const cashReportService = require('../services/CashReportService');
+const cashReportService = require('../services/LinksOrdersProductsService');
 const START_DATE = 'start_date';
 const END_DATE = 'end_date';
 

@@ -1,7 +1,7 @@
 "use strict";
 const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
 
-class CashReportService extends require("./BaseService") {
+class LinksOrdersProductsService extends require("./BaseService") {
 
 
     static async getCashReportByDate(startDate, endDate) {
@@ -11,6 +11,12 @@ class CashReportService extends require("./BaseService") {
 
         return linksOrdersProductsModel.getSQL();
     };
+
+    static async getSumCountAndTotalPrice(startDate, endDate) {
+        linksOrdersProductsModel.setShowDefaultTable(false).selectSumCount().selectSumTotalPrice().filterByDate(startDate, endDate);
+        return await linksOrdersProductsModel.getSQL();
+    };
+
 }
 
-module.exports = CashReportService;
+module.exports = LinksOrdersProductsService;
