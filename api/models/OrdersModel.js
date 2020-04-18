@@ -29,7 +29,7 @@ class OrdersModel extends require("./BaseModel") {
 
     static joinLinksOrdersProducts() {
         const LinksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
-        this.data.join.push(`LEFT JOIN ${LinksOrdersProductsModel.TABLE_NAME} on ${LinksOrdersProductsModel.TABLE_NAME}.${LinksOrdersProductsModel.ORDERS_ID} = ${TABLE_NAME}.${ID}`);
+        this.data.join.push(`LEFT JOIN ${LinksOrdersProductsModel.TABLE_NAME} on ${LinksOrdersProductsModel.TABLE_NAME}.${LinksOrdersProductsModel.ORDER_ID} = ${TABLE_NAME}.${ID}`);
         LinksOrdersProductsModel.syncData(this.data);
         return LinksOrdersProductsModel
     }

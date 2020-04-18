@@ -8,8 +8,10 @@ class testClass {
         having: [],
         tables: [],
         orderBy: [],
+        showDefaultTable: true,
         limit: null,
     };
+
 
     static get FIELDS() {
         throw new SyntaxError("Данные некорректны");
@@ -29,8 +31,19 @@ class testClass {
         return this;
     }
 
+    static setShowDefaultTable(value){
+        this.data.showDefaultTable=value;
+        return this;
+    }
+
     static getAllSelectedField() {
-        this.data.tables.unshift(this);
+        // if (this.data.tables.length < 1 && this.data.select.length < 1) {
+        //     this.data.tables.push(this)
+        // }
+        if(this.data.showDefaultTable){
+            this.data.tables.unshift(this);
+        }
+
         this.data.tables.forEach((tables) => {
             let items = tables.getThisSelect();
             this.data.select = this.data.select.concat(items);

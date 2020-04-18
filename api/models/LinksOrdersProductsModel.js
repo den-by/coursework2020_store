@@ -2,7 +2,7 @@
 const TABLE_NAME = "links_orders_products";
 const ID = 'id';
 const PRODUCT_ID = "product_id";
-const ORDERS_ID = "order_id";
+const ORDER_ID = "order_id";
 const PRICE = 'price';
 const TOTAL_PRICE = 'total_price';
 const PERCENT_TOTAL_PRICE = 'percent_total_price';
@@ -14,13 +14,13 @@ const AVERAGE_TOTAL_PRICE_BY_MONTH = 'average_total_price_by_month';
 const SUM_COUNT = 'sum_count';
 const SUM_TOTAL_PRICE = 'sum_total_price';
 const FIELDS = [
-    ID, ORDERS_ID, PRODUCT_ID, PRICE, COUNT, DATE_ADD
+    ID, ORDER_ID, PRODUCT_ID, PRICE, COUNT, DATE_ADD
 ];
 
 class LinksOrdersProductsModel extends require("./BaseModel") {
 
-    static get ORDERS_ID() {
-        return ORDERS_ID;
+    static get ORDER_ID() {
+        return ORDER_ID;
     }
 
     static get PRODUCT_ID() {
@@ -49,13 +49,16 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         return this;
     }
 
-    static selectPercentSumTotalPrice(){
-        this.data.select.push(`sum(${TABLE_NAME}.${TOTAL_PRICE}) / (select sum(${TABLE_NAME}.${TOTAL_PRICE}) from ${TABLE_NAME}) * 100 as  ${PERCENT_TOTAL_PRICE}`);
+    static selectPercentSumTotalPrice(sum){
+        // this.data.select.push(`ROUND(sum(${TABLE_NAME}.${TOTAL_PRICE}) / (select sum(${TABLE_NAME}.${TOTAL_PRICE}) from ${TABLE_NAME} where  ${startDate?startDate+' < '+DATE_ADD:''} and ${DATE_ADD} < ${endDate}) * 100,2) as  ${PERCENT_TOTAL_PRICE}`);
+        this.data.select.push(`ROUND(sum(${TABLE_NAME}.${TOTAL_PRICE} / ${sum}) * 100,2) as  ${PERCENT_TOTAL_PRICE}`);
+        // this.data.select.push(`ROUND( (select sum(tab1.${TOTAL_PRICE}) from ${TABLE_NAME} as tab1 join ${TABLE_NAME} as tab2 on tab2.id = tab1.id),2) as  ${PERCENT_TOTAL_PRICE}`);
         return this;
     }
 
-    static selectPercentSumCount(){
-        this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) / (select sum(${TABLE_NAME}.${COUNT}) from ${TABLE_NAME}) * 100 as  ${PERCENT_COUNT}`);
+    static selectPercentSumCount(sum){
+        this.data.select.push(`ROUND(sum(${TABLE_NAME}.${COUNT}) / ${sum} * 100,2) as  ${PERCENT_COUNT}`);
+        // this.data.select.push(`ROUND(sum(${TABLE_NAME}.${COUNT}) / (select sum(${TABLE_NAME}.${COUNT}) from ${TABLE_NAME} ) * 100,2) as  ${PERCENT_COUNT}`);
         return this;
     }
 
@@ -120,7 +123,7 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
 
     static joinOrders() {
         const ordersModel = require('../models/OrdersModel');
-        this.data.join.push(`LEFT JOIN ${ordersModel.TABLE_NAME} on ${ordersModel.TABLE_NAME}.${ordersModel.ID} = ${TABLE_NAME}.${ORDERS_ID}`);
+        this.data.join.push(`LEFT JOIN ${ordersModel.TABLE_NAME} on ${ordersModel.TABLE_NAME}.${ordersModel.ID} = ${TABLE_NAME}.${ORDER_ID}`);
         ordersModel.syncData(this.data);
         return ordersModel
     }

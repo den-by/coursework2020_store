@@ -20,10 +20,18 @@ class SuppliersService extends require("./BaseService") {
         return suppliersModel.getSQL();
     };
 
+    static async getSumCountAndTotalPrice(startDate, endDate) {
+        const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
+         linksOrdersProductsModel.setShowDefaultTable(false).selectSumCount().selectSumTotalPrice().filterByDate(startDate, endDate);
+        return await linksOrdersProductsModel.getSQL();
+    };
+
     static async getSuppliersAndProfit(startDate, endDate) {
+        const  {sum_count: sum_count ,sum_total_price : sum_total_price} = (await this.getSumCountAndTotalPrice(startDate, endDate))[0];
+        // const {sum_count: sum_count ,sum_total_price : sum_total_price} = res[0];
         suppliersModel.groupById().joinDelivery().joinLinksOrdersProductsByStartDateAndEndDate(startDate, endDate).
         selectSumCount().selectSumTotalPrice().
-        selectPercentSumTotalPrice().selectPercentSumCount();
+        selectPercentSumTotalPrice(sum_total_price).selectPercentSumCount(sum_count);
         return suppliersModel.getSQL();
     };
 
