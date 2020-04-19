@@ -1,11 +1,12 @@
 'use strict';
-module.exports = function(app) {
+module.exports = function (app) {
     const todoList = require('../controllers/todoListController');
     const suppliersController = require("../controllers/SuppliersController");
     const productsController = require("../controllers/ProductsController");
     const clientController = require("../controllers/ClientsController");
     const cashReportController = require("../controllers/CashReportController");
     const preOrdersController = require("../controllers/PreOrdersController");
+    const storageController = require("../controllers/StorageController");
 
     app.route('/tasks')
         .get(todoList.list_all_tasks)
@@ -43,6 +44,9 @@ module.exports = function(app) {
 
     app.route('/pre_orders')
         .get(preOrdersController.getAll);
+
+    app.route('/storage')
+        .get(storageController.getAll);
 
     app.route('/clients/client_and_count')
         .get(clientController.clientAndCount);

@@ -5,7 +5,7 @@ class SuppliersService extends require("./BaseService") {
 
     static getByTypeIdProductIdDelivery(supplier_type_id, product_id, startData, endData, minValue, productId) {
         suppliersModel.filterBySupplierType(supplier_type_id).joinLinkProductsSuppliers().filterByProductId(product_id);
-        suppliersModel.filterByMinCount(minValue).joinDelivery().filterByDelivery(startData, endData, productId);
+        suppliersModel.filterByMinCount(minValue).joinDelivery().filterByDateAdd(startData, endData).filterByProductId(productId);
         return suppliersModel.getSQL();
     };
 

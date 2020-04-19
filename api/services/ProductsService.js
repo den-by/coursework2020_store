@@ -7,7 +7,7 @@ class ProductsService extends require("./BaseService") {
     static async getDefectedDeliveryByProducts(startDate, endDate) {
 
         const deliveryModel = productsModel.groupById().joinDelivery();
-        deliveryModel.filterByDelivery(startDate, endDate);
+        deliveryModel.filterByDateAdd(startDate, endDate);
         deliveryModel.joinWriteoffs().selectAggregateCount();
         deliveryModel.joinSuppliers().selectTable().groupById();
 

@@ -6,12 +6,12 @@ const PRODUCT_ID = 'product_id';
 const TOTAL_PRICE = 'total_price';
 const SUM_COUNT = 'sum_count';
 const SUM_TOTAL_PRICE = 'sum_total_price';
-const PURCHASE_PRICE = 'purchase_price';
-const DELIVERY_HOUR = 'delivery_hour';
+const DELIVERY_PRICE = 'delivery_price';
+const COUNT_IN_STORAGE = 'count_in_storage';
 const SUPPLIER_ID = 'supplier_id';
 const COUNT = 'count';
 const FIELDS = [
-    ID, PRODUCT_ID, DATE_ADD, PURCHASE_PRICE, DELIVERY_HOUR, COUNT
+    ID, PRODUCT_ID, DATE_ADD, DELIVERY_PRICE, COUNT
 ];
 
 class DeliverysModel extends require("./BaseModel") {
@@ -42,23 +42,23 @@ class DeliverysModel extends require("./BaseModel") {
         return this;
     }
 
-    static filterByDelivery(startData, endData, productId = null) {
-        this.filterByProductId(productId);
-        // if (productId) {
-        //     this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${productId}`);
-        // }
-
-        this.filterByDateAdd(startData, endData);
-        // if (startData && endData) {
-        //     const parseStartDate = Date.parse(startData);
-        //     const parseEndDate = Date.parse(endData);
-        //     if (parseStartDate && parseEndDate) {
-        //         this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData}`);
-        //         this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData}`);
-        //     }
-        // }
-        return this;
-    }
+    // static filterByDelivery(startData, endData, productId = null) {
+    //     this.filterByProductId(productId);
+    //     // if (productId) {
+    //     //     this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${productId}`);
+    //     // }
+    //
+    //     this.filterByDateAdd(startData, endData);
+    //     // if (startData && endData) {
+    //     //     const parseStartDate = Date.parse(startData);
+    //     //     const parseEndDate = Date.parse(endData);
+    //     //     if (parseStartDate && parseEndDate) {
+    //     //         this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData}`);
+    //     //         this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData}`);
+    //     //     }
+    //     // }
+    //     return this;
+    // }
 
     static filterByProductId(productId) {
         if (productId) {
@@ -68,15 +68,28 @@ class DeliverysModel extends require("./BaseModel") {
 
     static filterByDateAdd(startData, endData) {
         if (startData && endData) {
+            this.filterByEndDateAdd(startData);
+            this.filterByEndDateAdd(endData);
+        }
+        return this;
+    }
+
+    static filterByStartDateAdd(startData) {
+        if (startData) {
             const parseStartDate = Date.parse(startData);
-            const parseEndDate = Date.parse(endData);
             if (parseStartDate) {
                 this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData}`);
             }
+        }
+        return this;
+    }
+
+    static filterByEndDateAdd(endData) {
+        if (endData) {
+            const parseEndDate = Date.parse(endData);
             if (parseEndDate) {
                 this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData}`);
             }
-
         }
         return this;
     }
@@ -117,7 +130,7 @@ class DeliverysModel extends require("./BaseModel") {
             }, '')
 
         }
-        this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.PRODUCT_ID}`);
+        this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.DELIVERY_ID}`);
         linksOrdersProductsModel.syncData(this.data);
         return linksOrdersProductsModel;
     }
@@ -130,9 +143,21 @@ class DeliverysModel extends require("./BaseModel") {
         if (endDate) {
             endDate = ` and ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.DATE_ADD} < ${endDate}`
         }
-        this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.PRODUCT_ID} ${startDate} ${endDate}`);
+        this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.DELIVERY_ID} ${startDate} ${endDate}`);
         linksOrdersProductsModel.syncData(this.data);
         return linksOrdersProductsModel;
+    }
+
+    static selectCountInStorage() {
+        const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
+        this.data.select.push(`${TABLE_NAME}.${COUNT}-${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.COUNT} as ${COUNT_IN_STORAGE}`);
+        return this;
+    }
+
+    static filterByMinCount(minCount = 1) {
+        const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
+        this.data.where.push(`${TABLE_NAME}.${COUNT}-${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.COUNT} > ${minCount}`);
+        return this;
     }
 }
 

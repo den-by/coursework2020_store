@@ -2,6 +2,7 @@
 const TABLE_NAME = "links_orders_products";
 const ID = 'id';
 const PRODUCT_ID = "product_id";
+const DELIVERY_ID = "delivery_id";
 const ORDER_ID = "order_id";
 const PRICE = 'price';
 const TOTAL_PRICE = 'total_price';
@@ -27,6 +28,10 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         return PRODUCT_ID;
     }
 
+    static get DELIVERY_ID() {
+        return DELIVERY_ID;
+    }
+
     static get DATE_ADD() {
         return DATE_ADD;
     }
@@ -37,6 +42,10 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
 
     static get TABLE_NAME() {
         return TABLE_NAME;
+    }
+
+    static get COUNT() {
+        return COUNT;
     }
 
     static selectSumCount() {
@@ -134,6 +143,8 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         productsModel.syncData(this.data);
         return productsModel
     }
+
+
 }
 
 module.exports = LinksOrdersProductsModel;
