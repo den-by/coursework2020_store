@@ -3,6 +3,9 @@ const ID = 'id';
 const TABLE_NAME = 'deliverys';
 const DATE_ADD = 'date_add';
 const PRODUCT_ID = 'product_id';
+const TOTAL_PRICE = 'total_price';
+const SUM_COUNT = 'sum_count';
+const SUM_TOTAL_PRICE = 'sum_total_price';
 const PURCHASE_PRICE = 'purchase_price';
 const DELIVERY_HOUR = 'delivery_hour';
 const SUPPLIER_ID = 'supplier_id';
@@ -29,17 +32,51 @@ class DeliveryModel extends require("./BaseModel") {
         return PRODUCT_ID;
     }
 
+    static selectSumCount() {
+        this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) as ${SUM_COUNT}`);
+        return this;
+    }
+
+    static selectSumTotalPrice() {
+        this.data.select.push(`sum(${TABLE_NAME}.${TOTAL_PRICE}) as ${SUM_TOTAL_PRICE}`);
+        return this;
+    }
+
     static filterByDelivery(startData, endData, productId = null) {
+        this.filterByProductId(productId);
+        // if (productId) {
+        //     this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${productId}`);
+        // }
+
+        this.filterByDateAdd(startData, endData);
+        // if (startData && endData) {
+        //     const parseStartDate = Date.parse(startData);
+        //     const parseEndDate = Date.parse(endData);
+        //     if (parseStartDate && parseEndDate) {
+        //         this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData}`);
+        //         this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData}`);
+        //     }
+        // }
+        return this;
+    }
+
+    static filterByProductId(productId) {
         if (productId) {
             this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${productId}`);
         }
+    }
+
+    static filterByDateAdd(startData, endData) {
         if (startData && endData) {
             const parseStartDate = Date.parse(startData);
             const parseEndDate = Date.parse(endData);
-            if (parseStartDate && parseEndDate) {
+            if (parseStartDate) {
                 this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData}`);
+            }
+            if (parseEndDate) {
                 this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData}`);
             }
+
         }
         return this;
     }
@@ -68,7 +105,7 @@ class DeliveryModel extends require("./BaseModel") {
 
     static joinLinksOrdersProducts(where) {
         const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
-        if(where){
+        if (where) {
             // Object.entries( where )
             const reduce = (obj, fun, initialValue) =>
                 Object.entries(obj).reduce(
@@ -85,12 +122,12 @@ class DeliveryModel extends require("./BaseModel") {
         return linksOrdersProductsModel;
     }
 
-    static joinLinksOrdersProductsByStartDateAndEndDate(startDate,endDate) {
+    static joinLinksOrdersProductsByStartDateAndEndDate(startDate, endDate) {
         const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
-        if(startDate){
+        if (startDate) {
             startDate = ` and ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.DATE_ADD} > ${startDate}`
         }
-        if (endDate){
+        if (endDate) {
             endDate = ` and ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.DATE_ADD} < ${endDate}`
         }
         this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.PRODUCT_ID} ${startDate} ${endDate}`);
