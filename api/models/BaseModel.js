@@ -37,13 +37,12 @@ class testClass {
     }
 
     static getAllSelectedField() {
-        // if (this.data.tables.length < 1 && this.data.select.length < 1) {
-        //     this.data.tables.push(this)
-        // }
         if(this.data.showDefaultTable){
             this.data.tables.unshift(this);
         }
-
+        if (this.data.tables.length < 1 && this.data.select.length < 1) {
+            this.data.tables.push(this)
+        }
         this.data.tables.forEach((tables) => {
             let items = tables.getThisSelect();
             this.data.select = this.data.select.concat(items);
