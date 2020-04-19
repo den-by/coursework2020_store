@@ -4,6 +4,7 @@ const TABLE_NAME = 'deliverys';
 const DATE_ADD = 'date_add';
 const PRODUCT_ID = 'product_id';
 const TOTAL_PRICE = 'total_price';
+const STORAGE_ID = 'storage_id';
 const SUM_COUNT = 'sum_count';
 const SUM_TOTAL_PRICE = 'sum_total_price';
 const DELIVERY_PRICE = 'delivery_price';
@@ -95,25 +96,32 @@ class DeliverysModel extends require("./BaseModel") {
     }
 
     static joinProducts() {
-        const ProductsModel = require('../models/ProductsModel');
-        this.data.join.push(`JOIN ${ProductsModel.TABLE_NAME} on ${ProductsModel.TABLE_NAME}.${ProductsModel.ID} = ${TABLE_NAME}.${PRODUCT_ID}`);
-        ProductsModel.syncData(this.data);
-        return ProductsModel;
+        const productsModel = require('../models/ProductsModel');
+        this.data.join.push(`JOIN ${productsModel.TABLE_NAME} on ${productsModel.TABLE_NAME}.${productsModel.ID} = ${TABLE_NAME}.${PRODUCT_ID}`);
+        productsModel.syncData(this.data);
+        return productsModel;
     }
 
     static joinSuppliers() {
-        const SuppliersModel = require('../models/SuppliersModel');
-        this.data.join.push(`JOIN ${SuppliersModel.TABLE_NAME} on ${SuppliersModel.TABLE_NAME}.${SuppliersModel.ID} = ${TABLE_NAME}.${SUPPLIER_ID}`);
-        SuppliersModel.syncData(this.data);
-        return SuppliersModel;
+        const suppliersModel = require('../models/SuppliersModel');
+        this.data.join.push(`JOIN ${suppliersModel.TABLE_NAME} on ${suppliersModel.TABLE_NAME}.${suppliersModel.ID} = ${TABLE_NAME}.${SUPPLIER_ID}`);
+        suppliersModel.syncData(this.data);
+        return suppliersModel;
+    }
+
+    static joinStorage() {
+        const storageModel = require('./StorageModel');
+        this.data.join.push(`JOIN ${storageModel.TABLE_NAME} on ${storageModel.TABLE_NAME}.${storageModel.ID} = ${TABLE_NAME}.${STORAGE_ID}`);
+        storageModel.syncData(this.data);
+        return storageModel;
     }
 
 
     static joinWriteoffs() {
-        const WriteoffsModel = require('../models/WriteoffsModel');
-        this.data.join.push(`JOIN ${WriteoffsModel.TABLE_NAME} on ${WriteoffsModel.TABLE_NAME}.${WriteoffsModel.PRODUCT_ID} = ${TABLE_NAME}.${ID}`);
-        WriteoffsModel.syncData(this.data);
-        return WriteoffsModel;
+        const writeoffsModel = require('../models/WriteoffsModel');
+        this.data.join.push(`JOIN ${writeoffsModel.TABLE_NAME} on ${writeoffsModel.TABLE_NAME}.${writeoffsModel.PRODUCT_ID} = ${TABLE_NAME}.${ID}`);
+        writeoffsModel.syncData(this.data);
+        return writeoffsModel;
     }
 
     static joinLinksOrdersProducts(where) {

@@ -9,6 +9,7 @@ class DeliverysService extends require("./BaseService") {
 
     static getInStorage(startDate, endDate) {
         deliverysModel.selectCountInStorage().filterByEndDateAdd(endDate).filterByStartDateAdd(startDate).filterByMinCount().joinLinksOrdersProducts();
+        deliverysModel.joinStorage().selectTable();
         return deliverysModel.getSQL();
     }
 }
