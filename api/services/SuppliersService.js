@@ -22,7 +22,7 @@ class SuppliersService extends require("./BaseService") {
 
     // static async getSumCountAndTotalPrice(startDate, endDate) {
     //     const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
-    //      linksOrdersProductsModel.setShowDefaultTable(false).selectSumCount().selectSumTotalPrice().filterByDate(startDate, endDate);
+    //      linksOrdersProductsModel.setShowDefaultTable(false).selectCount().selectSumTotalPrice().filterByDate(startDate, endDate);
     //     return await linksOrdersProductsModel.getSQL();
     // };
 

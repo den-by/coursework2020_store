@@ -42,7 +42,7 @@ module.exports = function(app) {
         .get(cashReportController.get);
 
     app.route('/pre_orders')
-        .get(preOrdersController.all);
+        .get(preOrdersController.getAll);
 
     app.route('/clients/client_and_count')
         .get(clientController.clientAndCount);
