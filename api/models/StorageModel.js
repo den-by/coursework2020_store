@@ -2,8 +2,6 @@
 const TABLE_NAME = "storage";
 const ID = 'id';
 const NAME = "name";
-// const PRODUCT_DESCRIPTION = "product_description";
-// const SELLING_PRICE = 'selling_prise';
 const COUNT = 'count';
 const FIELDS = [
     ID, NAME
@@ -15,10 +13,6 @@ class StorageModel extends require("./BaseModel") {
         return ID;
     }
 
-    // static get PRODUCT_ID() {
-    //     return PRODUCT_ID;
-    // }
-
     static get FIELDS() {
         return FIELDS;
     }
@@ -27,10 +21,14 @@ class StorageModel extends require("./BaseModel") {
         return TABLE_NAME;
     }
 
-    static selectAggregateCount = () => {
+    static filterIdNotIn(ids) {
+        this.data.where.push(`NOT IN ()`);
+    }
+
+    static selectAggregateCount() {
         this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) as sum_count`);
         return this;
-    };
+    }
 }
 
 module.exports = StorageModel;
