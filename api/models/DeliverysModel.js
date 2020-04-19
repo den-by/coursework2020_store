@@ -14,7 +14,7 @@ const FIELDS = [
     ID, PRODUCT_ID, DATE_ADD, PURCHASE_PRICE, DELIVERY_HOUR, COUNT
 ];
 
-class DeliveryModel extends require("./BaseModel") {
+class DeliverysModel extends require("./BaseModel") {
 
     static get SUPPLIER_ID() {
         return SUPPLIER_ID;
@@ -136,4 +136,4 @@ class DeliveryModel extends require("./BaseModel") {
     }
 }
 
-module.exports = DeliveryModel;
+module.exports = DeliverysModel;

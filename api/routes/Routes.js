@@ -3,8 +3,9 @@ module.exports = function(app) {
     const todoList = require('../controllers/todoListController');
     const suppliersController = require("../controllers/SuppliersController");
     const productsController = require("../controllers/ProductsController");
-    const clientController = require("../controllers/ClientController");
+    const clientController = require("../controllers/ClientsController");
     const cashReportController = require("../controllers/CashReportController");
+    const preOrdersController = require("../controllers/PreOrdersController");
 
     app.route('/tasks')
         .get(todoList.list_all_tasks)
@@ -39,6 +40,9 @@ module.exports = function(app) {
 
     app.route('/cash_report')
         .get(cashReportController.get);
+
+    app.route('/pre_orders')
+        .get(preOrdersController.all);
 
     app.route('/clients/client_and_count')
         .get(clientController.clientAndCount);

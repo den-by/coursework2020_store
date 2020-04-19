@@ -1,5 +1,5 @@
 "use strict";
-const DeliveryModel = require('../models/DeliveryModel');
+const DeliveryModel = require('./DeliverysModel');
 const TABLE_NAME = "suppliers";
 
 const ID = 'id';

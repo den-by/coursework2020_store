@@ -1,5 +1,5 @@
 const linksOrdersProductsService = require('../services/LinksOrdersProductsService');
-const deliveryService = require('../services/DeliveryService');
+const deliveryService = require('../services/DeliverysService');
 const START_DATE = 'start_date';
 const END_DATE = 'end_date';
 

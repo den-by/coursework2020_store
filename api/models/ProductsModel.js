@@ -23,7 +23,7 @@ class ProductsModel extends require("./BaseModel") {
     }
 
     static joinDelivery() {
-        const deliveryModel = require('../models/DeliveryModel');
+        const deliveryModel = require('./DeliverysModel');
         this.data.join.push(`LEFT JOIN ${deliveryModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${deliveryModel.TABLE_NAME}.${deliveryModel.PRODUCT_ID}`);
         deliveryModel.syncData(this.data);
         return deliveryModel;

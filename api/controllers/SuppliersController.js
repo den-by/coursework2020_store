@@ -1,6 +1,6 @@
 const suppliersService = require('../services/SuppliersService');
 const linksOrdersProductsService = require('../services/LinksOrdersProductsService');
-const deliveryService = require('../services/DeliveryService');
+const deliveryService = require('../services/DeliverysService');
 const supplierTypeId = 'supplier_type_id';
 const productId = 'product_id';
 const START_DATE = 'start_date';
