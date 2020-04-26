@@ -3,8 +3,9 @@ const TABLE_NAME = "storage";
 const ID = 'id';
 const NAME = "name";
 const COUNT = 'count';
+const CAPACITY = 'capacity';
 const FIELDS = [
-    ID, NAME
+    ID, NAME, CAPACITY
 ];
 
 class StorageModel extends require("./BaseModel") {
@@ -21,18 +22,16 @@ class StorageModel extends require("./BaseModel") {
         return TABLE_NAME;
     }
 
-    static filterIdNotIn(ids) {
-        this.data.where.push(`NOT IN ()`);
-    }
-
     static selectAggregateCount() {
         this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) as sum_count`);
         return this;
     }
 
     static filterByIdNotIn(ids) {
-        this.data.where.push(`${TABLE_NAME}.${ID} not in ${ids}`);
-        return this;
+        if(ids) {
+            this.data.where.push(`${TABLE_NAME}.${ID} not in (${ids.join(',')})`);
+            return this;
+        }
     }
 
 }

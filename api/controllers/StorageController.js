@@ -20,8 +20,8 @@ class StorageController extends require('./BaseController') {
     static async getFreeCells(req, res) {
         const storageData = await deliverysService.getInStorage();
         const notEmptyIds = Array.from(storageData, x => x['storage_id']);
-        const emptyStorage = storageService.getFreeIdByNotEmptyId(notEmptyIds);
-        res.render('home', {title: 'Greetings form Handlebars', 'data': emptyStorage})
+        const emptyStorage = await storageService.getFreeIdByNotEmptyId(notEmptyIds);
+        res.render('emptyStorage', {title: 'Greetings form Handlebars', 'data': {emptyStorage: emptyStorage}})
     }
 }
 

@@ -1,0 +1,20 @@
+<nav><a href="/storage">Что храниться</a> | <a href="/storage/free_spaces">Пустые блоки</a></nav>
+<h2>Склад</h2>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Название ячейки склада</th>
+        <th>Вместительность Товара шт.</th>
+    </tr>
+    {{#each data.emptyStorage}}
+        <tr>
+            <td>{{storage_id}}
+            </td>
+            <td>{{storage_name}}
+            </td>
+            <td>{{storage_capacity}}
+            </td>
+        </tr>
+    {{/each}}
+</table>
+<div>{{json data}}</div>
