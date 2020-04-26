@@ -7,7 +7,7 @@ class ProductsService extends require("./BaseService") {
     static async getDefectedDeliveryByProducts(startDate, endDate) {
 
         const deliveryModel = productsModel.groupById().joinDelivery();
-        deliveryModel.filterByDateAdd(startDate, endDate);
+        deliveryModel.filterByStartDateAdd(startDate).filterByEndDateAdd(endDate);
         deliveryModel.joinWriteoffs().selectAggregateCount();
         deliveryModel.joinSuppliers().selectTable().groupById();
 
@@ -22,7 +22,7 @@ class ProductsService extends require("./BaseService") {
         return productsModel.getSQL();
     };
 
-    static async getProductsAndAverageSale(numberOfMonthsPassed  = 3) {
+    static async getProductsAndAverageSale(numberOfMonthsPassed = 3) {
         productsModel.groupById();
         productsModel.joinDelivery().joinLinksOrdersProducts().filterByNumberOfMonthsPassed(numberOfMonthsPassed).selectAverageCountBYMonth(numberOfMonthsPassed).selectAverageTotalPriceByMonth(numberOfMonthsPassed);
 

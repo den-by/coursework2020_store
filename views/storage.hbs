@@ -39,7 +39,8 @@
         <th>№</th>
         <th>Название ячейки склада</th>
         <th>Название товара</th>
-        <th>количество Товара</th>
+        <th>Количество Товара</th>
+        <th>Дата поставки</th>
     </tr>
     {{#each data.storage}}
         <tr>
@@ -51,7 +52,8 @@
             </td>
             <td>{{count_in_storage}} шт.
             </td>
+            <td>{{formatDate deliverys_date_add}}
+            </td>
         </tr>
     {{/each}}
 </table>
-<div>{{json data}}</div>

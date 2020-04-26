@@ -7,8 +7,8 @@ class DeliverysService extends require("./BaseService") {
         return deliverysModel.setShowDefaultTable(false).selectSumCount().selectSumTotalPrice().filterByStartDateAdd(startDate).filterByEndDateAdd(endDate).getSQL();
     }
 
-    static getInStorage(startDate, endDate) {
-        deliverysModel.selectCountInStorage().filterByEndDateAdd(endDate).filterByStartDateAdd(startDate).filterByMinCount().joinLinksOrdersProducts();
+    static getInStorage(startDate, endDate, productId) {
+        deliverysModel.filterByProductId(productId).selectCountInStorage().filterByStartDateAdd(startDate).filterByEndDateAdd(endDate).filterByMinCount().joinLinksOrdersProducts();
         deliverysModel.joinStorage().selectTable();
         deliverysModel.joinProducts().selectTable();
         return deliverysModel.getSQL();
