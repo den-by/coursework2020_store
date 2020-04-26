@@ -73,7 +73,7 @@ class DeliverysModel extends require("./BaseModel") {
 
     static filterByDateAdd(startData, endData) {
         if (startData && endData) {
-            this.filterByEndDateAdd(startData);
+            this.filterByStartDateAdd(startData);
             this.filterByEndDateAdd(endData);
         }
         return this;
@@ -83,7 +83,7 @@ class DeliverysModel extends require("./BaseModel") {
         if (startData) {
             const parseStartDate = Date.parse(startData);
             if (parseStartDate) {
-                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData}`);
+                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData.replace('-','')}`);
             }
         }
         return this;
@@ -93,7 +93,7 @@ class DeliverysModel extends require("./BaseModel") {
         if (endData) {
             const parseEndDate = Date.parse(endData);
             if (parseEndDate) {
-                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData}`);
+                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData.replace('-','')}`);
             }
         }
         return this;

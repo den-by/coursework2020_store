@@ -1,6 +1,6 @@
 <h1>{{{title}}}</h1>
-
 <form>
+    <h2>Фильтр</h2>
     <div>
         <h4>По поставкам</h4>
         <div>
@@ -21,7 +21,7 @@
         <div>
             <label> поиск по продукту который бы в поставке:<br>
                 <select name="deliverys_product_id">
-                    <option value="0">
+                    <option value="">
                         Все
                     </option>
                     {{#each data.products}}
@@ -38,17 +38,23 @@
         <h4>Другие фильтры</h4>
         <div>
             <label>поиск по типу поставщика:<br>
-                <select name="234">
-                    <option value="324">
-                        ывыа
+                <select name="supplier_type_id">
+                    <option value="">
+                        Все
                     </option>
+                    {{#each data.supplierTypes}}
+                        <option {{#if (eq @root.query.supplier_type_id supplier_types_id)}}selected{{/if}}
+                                value="{{supplier_types_id}}">
+                            {{supplier_types_name}}
+                        </option>
+                    {{/each}}
                 </select>
             </label>
         </div>
 
         <label> поиск по продукту который поставляет поставщик в целом:<br>
             <select name="product_id">
-                <option value="0">
+                <option value="">
                     Все
                 </option>
                 {{#each data.products}}
@@ -63,4 +69,10 @@
         <button>Найти</button>
     </div>
 </form>
+<h2>Фильтр</h2>
+{{#each data.suppliers}}
+    <option  {{#if (eq @root.query.product_id products_id)}}selected{{/if}} value="{{products_id}}">
+        {{products_name}}
+    </option>
+{{/each}}
 <div>{{json data}}</div>

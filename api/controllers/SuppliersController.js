@@ -1,6 +1,6 @@
 const suppliersService = require('../services/SuppliersService');
 const productsService = require('../services/ProductsService');
-// const  productsService = require('../services/');
+const supplierTypesService = require('../services/SupplierTypesService');
 const linksOrdersProductsService = require('../services/LinksOrdersProductsService');
 const deliveryService = require('../services/DeliverysService');
 const supplierTypeId = 'supplier_type_id';
@@ -15,8 +15,12 @@ class SuppliersController extends require('./BaseController') {
     static async listAllSuppliers(req, res) {
         const suppliers = await suppliersService.getByTypeIdProductIdDelivery(req.query[supplierTypeId], req.query[productId], req.query[START_DATE], req.query[END_DATE], req.query[MIN_VALUE], req.query[DELIVERYS_PRODUCT_ID]);
         const products = await productsService.getAll();
-        // const suplirType =
-        res.render('suppliers', {title: 'Все поставщики', 'data': {suppliers: suppliers, products: products }, 'query':req.query})
+        const supplierTypes = await supplierTypesService.getAll();
+        res.render('suppliers', {
+            title: 'Все поставщики',
+            'data': {suppliers: suppliers, products: products, supplierTypes: supplierTypes},
+            'query': req.query
+        })
     }
 
     static async getSuppliersAndDeliveryTimeByProduct(req, res) {
