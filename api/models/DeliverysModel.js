@@ -21,6 +21,10 @@ class DeliverysModel extends require("./BaseModel") {
         return SUPPLIER_ID;
     }
 
+    static get ID() {
+        return ID;
+    }
+
     static get FIELDS() {
         return FIELDS;
     }

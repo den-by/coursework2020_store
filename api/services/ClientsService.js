@@ -9,7 +9,8 @@ class SuppliersService extends require("./BaseService") {
         const linksOrdersProducts = ordersModel.joinLinksOrdersProducts();
         linksOrdersProducts.selectSumCount();
         linksOrdersProducts.filterByMinSumCount(minCount);
-        linksOrdersProducts.filterByProductId(productId);
+        // linksOrdersProducts.filterByProductId(productId);
+        linksOrdersProducts.joinDeliverys().filterByProductId(productId);
         return clientsModel.getSQL();
     };
 }
