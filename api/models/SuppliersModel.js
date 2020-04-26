@@ -55,18 +55,11 @@ class SuppliersModel extends require("./BaseModel") {
         return linksProductsSuppliersModel
     }
 
-    static joinDelivery = () => {
+    static joinDelivery() {
+        this.data.groupBy.push(`${TABLE_NAME}.${ID}`);
         this.data.join.push(`LEFT JOIN ${DeliveryModel.TABLE_NAME} on ${DeliveryModel.TABLE_NAME}.${DeliveryModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
         DeliveryModel.syncData(this.data);
         return DeliveryModel;
-    }
-
-    static filterByMinCount(minValue) {
-        this.data.groupBy.push(`${SuppliersModel.TABLE_NAME}.id`);
-        if (minValue) {
-            this.data.having.push(`sum(${DeliveryModel.TABLE_NAME}.count) >= ${minValue}`);
-        }
-        return this
     }
 
     static groupById(){

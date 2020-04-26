@@ -75,6 +75,7 @@
         <th>№</th>
         <th>Имя</th>
         <th>Тип</th>
+        <th>количество</th>
     </tr>
     {{#each data.suppliers}}
         <tr>
@@ -83,6 +84,8 @@
             <td>{{suppliers_name}}
             </td>
             <td>{{supplier_types_name}}
+            </td>
+            <td>{{deliverys_sum_count}}
             </td>
         </tr>
     {{/each}}

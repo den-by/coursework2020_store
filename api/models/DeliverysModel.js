@@ -38,7 +38,7 @@ class DeliverysModel extends require("./BaseModel") {
     }
 
     static selectSumCount() {
-        this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) as ${SUM_COUNT}`);
+        this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) as ${TABLE_NAME}_${SUM_COUNT}`);
         return this;
     }
 
@@ -64,6 +64,13 @@ class DeliverysModel extends require("./BaseModel") {
     //     // }
     //     return this;
     // }
+
+    static filterByMinSumCount(minValue) {
+        if (minValue) {
+            this.data.having.push(`sum(${TABLE_NAME}.${COUNT}) >= ${minValue}`);
+        }
+        return this
+    }
 
     static filterByProductId(productId) {
         if (productId) {
