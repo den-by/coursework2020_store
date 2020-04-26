@@ -48,6 +48,9 @@ module.exports = function (app) {
     app.route('/storage')
         .get(storageController.getAll);
 
+    app.route('/storage/free_spaces')
+        .get(storageController.getFreeCells);
+
     app.route('/clients/client_and_count')
         .get(clientController.clientAndCount);
 

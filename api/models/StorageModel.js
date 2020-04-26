@@ -29,6 +29,12 @@ class StorageModel extends require("./BaseModel") {
         this.data.select.push(`sum(${TABLE_NAME}.${COUNT}) as sum_count`);
         return this;
     }
+
+    static filterByIdNotIn(ids) {
+        this.data.where.push(`${TABLE_NAME}.${ID} not in ${ids}`);
+        return this;
+    }
+
 }
 
 module.exports = StorageModel;
