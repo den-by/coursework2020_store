@@ -115,7 +115,7 @@ class DeliverysModel extends require("./BaseModel") {
 
     static joinStorage() {
         const storageModel = require('./StorageModel');
-        this.data.join.push(`JOIN ${storageModel.TABLE_NAME} on ${storageModel.TABLE_NAME}.${storageModel.ID} = ${TABLE_NAME}.${STORAGE_ID}`);
+        this.data.join.push(`LEFT JOIN ${storageModel.TABLE_NAME} on ${storageModel.TABLE_NAME}.${storageModel.ID} = ${TABLE_NAME}.${STORAGE_ID}`);
         storageModel.syncData(this.data);
         return storageModel;
     }
@@ -162,14 +162,19 @@ class DeliverysModel extends require("./BaseModel") {
 
     static selectCountInStorage() {
         const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
-        this.data.select.push(`${TABLE_NAME}.${COUNT}-${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.COUNT} as ${COUNT_IN_STORAGE}`);
+        this.data.select.push(`${TABLE_NAME}.${COUNT}-IFNULL(sum(${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.COUNT}), 0)as ${COUNT_IN_STORAGE}`);
         return this;
     }
 
-    static filterByMinCount(minCount = 1) {
+    static filterByMinCountInStorage(minCount = 0) {
         const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
-        this.data.where.push(`${TABLE_NAME}.${COUNT}-${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.COUNT} > ${minCount}`);
+        this.data.having.push(`${TABLE_NAME}.${COUNT}-IFNULL(sum(${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.COUNT}), 0) > ${minCount}`);
         return this;
+    }
+
+    static groupById(){
+        this.data.groupBy.push(`${TABLE_NAME}.${ID}`);
+        return this
     }
 }
 
