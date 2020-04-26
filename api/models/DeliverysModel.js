@@ -3,16 +3,16 @@ const ID = 'id';
 const TABLE_NAME = 'deliverys';
 const DATE_ADD = 'date_add';
 const PRODUCT_ID = 'product_id';
+const PRICE = 'price';
 const TOTAL_PRICE = 'total_price';
 const STORAGE_ID = 'storage_id';
 const SUM_COUNT = 'sum_count';
 const SUM_TOTAL_PRICE = 'sum_total_price';
-const DELIVERY_PRICE = 'delivery_price';
 const COUNT_IN_STORAGE = 'count_in_storage';
 const SUPPLIER_ID = 'supplier_id';
 const COUNT = 'count';
 const FIELDS = [
-    ID, PRODUCT_ID, DATE_ADD, DELIVERY_PRICE, COUNT
+    ID, PRODUCT_ID, DATE_ADD, COUNT, PRICE
 ];
 
 class DeliverysModel extends require("./BaseModel") {

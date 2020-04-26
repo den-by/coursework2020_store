@@ -70,6 +70,7 @@ class testClass {
 
         this.data.tables = [];
         this.data.select = [];
+        this.data.showDefaultTable= true;
 
         if (this.data.join.length > 0) {
             sql += ` ${this.data.join.join(" ")}`;
