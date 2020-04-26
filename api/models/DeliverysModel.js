@@ -69,6 +69,7 @@ class DeliverysModel extends require("./BaseModel") {
         if (productId) {
             this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${productId}`);
         }
+        return this;
     }
 
     static filterByDateAdd(startData, endData) {

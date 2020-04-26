@@ -35,22 +35,24 @@ class SuppliersModel extends require("./BaseModel") {
     }
 
     static joinSupplierType() {
-        this.data.join.push("JOIN supplier_types on supplier_types.id = suppliers.supplier_type_id");
-        return this;
+        const supplierTypesModel = require('../models/SupplierTypesModel');
+        this.data.join.push(`LEFT JOIN ${supplierTypesModel.TABLE_NAME} on ${supplierTypesModel.TABLE_NAME}.${supplierTypesModel.ID} = ${TABLE_NAME}.${SUPPLIER_TYPE_ID}`);
+        supplierTypesModel.syncData(this.data);
+        return supplierTypesModel
     }
 
     static selectPriceDeliveryTime() {
-        const LinksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
-        LinksProductsSuppliersModel.selectTable();
-        this.data.tables.push(LinksProductsSuppliersModel);
+        const linksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
+        linksProductsSuppliersModel.selectTable();
+        this.data.tables.push(linksProductsSuppliersModel);
         return this;
     }
 
     static joinLinkProductsSuppliers() {
-        const LinksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
-        this.data.join.push(`LEFT JOIN ${LinksProductsSuppliersModel.TABLE_NAME} on ${LinksProductsSuppliersModel.TABLE_NAME}.${LinksProductsSuppliersModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
-        LinksProductsSuppliersModel.syncData(this.data);
-        return LinksProductsSuppliersModel
+        const linksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
+        this.data.join.push(`LEFT JOIN ${linksProductsSuppliersModel.TABLE_NAME} on ${linksProductsSuppliersModel.TABLE_NAME}.${linksProductsSuppliersModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);
+        linksProductsSuppliersModel.syncData(this.data);
+        return linksProductsSuppliersModel
     }
 
     static joinDelivery = () => {
