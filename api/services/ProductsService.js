@@ -35,6 +35,10 @@ class ProductsService extends require("./BaseService") {
 
         return productsModel.getSQL();
     };
+
+    static async getAll() {
+        return productsModel.getSQL();
+    };
 }
 
 module.exports = ProductsService;

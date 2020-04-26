@@ -3,9 +3,9 @@ const suppliersModel = require('../models/SuppliersModel');
 
 class SuppliersService extends require("./BaseService") {
 
-    static getByTypeIdProductIdDelivery(supplier_type_id, product_id, startData, endData, minValue, productId) {
-        suppliersModel.filterBySupplierType(supplier_type_id).joinLinkProductsSuppliers().filterByProductId(product_id);
-        suppliersModel.filterByMinCount(minValue).joinDelivery().filterByDateAdd(startData, endData).filterByProductId(productId);
+    static getByTypeIdProductIdDelivery(supplierTypeId, productId, startData, endData, minValue, deliveryProductId) {
+        suppliersModel.filterBySupplierType(supplierTypeId).joinLinkProductsSuppliers().filterByProductId(productId);
+        suppliersModel.filterByMinCount(minValue).joinDelivery().filterByDateAdd(startData, endData).filterByProductId(deliveryProductId);
         return suppliersModel.getSQL();
     };
 
