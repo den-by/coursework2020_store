@@ -39,14 +39,14 @@ class PreOrdersModel extends require("./BaseModel") {
 
     // static joinDelivery() {
     //     const deliveryModel = require('./DeliverysModel');
-    //     this.data.join.push(`LEFT JOIN ${deliveryModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${deliveryModel.TABLE_NAME}.${deliveryModel.PRODUCT_ID}`);
+    //     this.data.join.push(`LEFT JOIN ${deliveryModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${deliveryModel.TABLE_NAME}.${deliveryModel.DELIVERY_ID}`);
     //     deliveryModel.syncData(this.data);
     //     return deliveryModel;
     // }
     //
     // static joinLinksOrdersProducts() {
     //     const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
-    //     this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.PRODUCT_ID}`);
+    //     this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.DELIVERY_ID}`);
     //     linksOrdersProductsModel.syncData(this.data);
     //     return linksOrdersProductsModel;
     // }

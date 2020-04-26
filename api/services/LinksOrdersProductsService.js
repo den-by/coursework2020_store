@@ -6,7 +6,7 @@ class LinksOrdersProductsService extends require("./BaseService") {
 
     static async getCashReportByDate(startDate, endDate) {
 
-        const productsModel = linksOrdersProductsModel.filterByDate(startDate,endDate).orderByDateAdd().joinProducts();
+        const productsModel = linksOrdersProductsModel.filterByDate(startDate,endDate).orderByDateAdd().joinDeliverys().joinProducts();
         productsModel.getAllSelectedField();
 
         return linksOrdersProductsModel.getSQL();

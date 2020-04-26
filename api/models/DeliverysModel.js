@@ -50,7 +50,7 @@ class DeliverysModel extends require("./BaseModel") {
     // static filterByDelivery(startData, endData, productId = null) {
     //     this.filterByProductId(productId);
     //     // if (productId) {
-    //     //     this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${productId}`);
+    //     //     this.data.where.push(`${TABLE_NAME}.${DELIVERY_ID} = ${productId}`);
     //     // }
     //
     //     this.filterByDateAdd(startData, endData);
@@ -123,7 +123,7 @@ class DeliverysModel extends require("./BaseModel") {
 
     static joinWriteoffs() {
         const writeoffsModel = require('../models/WriteoffsModel');
-        this.data.join.push(`JOIN ${writeoffsModel.TABLE_NAME} on ${writeoffsModel.TABLE_NAME}.${writeoffsModel.PRODUCT_ID} = ${TABLE_NAME}.${ID}`);
+        this.data.join.push(`JOIN ${writeoffsModel.TABLE_NAME} on ${writeoffsModel.TABLE_NAME}.${writeoffsModel.DELIVERY_ID} = ${TABLE_NAME}.${ID}`);
         writeoffsModel.syncData(this.data);
         return writeoffsModel;
     }

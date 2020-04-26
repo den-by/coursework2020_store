@@ -24,14 +24,14 @@ class ProductsService extends require("./BaseService") {
 
     static async getProductsAndAverageSale(numberOfMonthsPassed  = 3) {
         productsModel.groupById();
-        productsModel.joinLinksOrdersProducts().filterByNumberOfMonthsPassed(numberOfMonthsPassed).selectAverageCountBYMonth(numberOfMonthsPassed).selectAverageTotalPriceByMonth(numberOfMonthsPassed);
+        productsModel.joinDelivery().joinLinksOrdersProducts().filterByNumberOfMonthsPassed(numberOfMonthsPassed).selectAverageCountBYMonth(numberOfMonthsPassed).selectAverageTotalPriceByMonth(numberOfMonthsPassed);
 
         return productsModel.getSQL();
     };
 
     static async getSelProductsByDay(startDate) {
         productsModel.groupById();
-        productsModel.joinLinksOrdersProducts().filterByDay(startDate).selectSumCount().selectSumTotalPrice();
+        productsModel.joinDelivery().joinLinksOrdersProducts().filterByDay(startDate).selectSumCount().selectSumTotalPrice();
 
         return productsModel.getSQL();
     };

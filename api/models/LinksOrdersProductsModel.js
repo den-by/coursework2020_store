@@ -15,7 +15,7 @@ const AVERAGE_TOTAL_PRICE_BY_MONTH = 'average_total_price_by_month';
 const SUM_COUNT = 'sum_count';
 const SUM_TOTAL_PRICE = 'sum_total_price';
 const FIELDS = [
-    ID, ORDER_ID, PRODUCT_ID, PRICE, COUNT, DATE_ADD
+    ID, ORDER_ID, PRICE, COUNT, DATE_ADD
 ];
 
 class LinksOrdersProductsModel extends require("./BaseModel") {
@@ -93,7 +93,7 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
     }
 
     static orderByDateAdd() {
-        this.data.orderBy.push(`${DATE_ADD} asc`);
+        this.data.orderBy.push(`${TABLE_NAME}.${DATE_ADD} asc`);
         return this;
     }
 
