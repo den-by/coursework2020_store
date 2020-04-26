@@ -10,6 +10,9 @@ module.exports = {
     },
     formatDate: function (date) {
 
+        if (!date) {
+            return ''
+        }
         let dd = date.getDate();
         if (dd < 10) {
             dd = '0' + dd
