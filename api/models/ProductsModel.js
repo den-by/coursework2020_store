@@ -2,10 +2,10 @@
 const TABLE_NAME = "products";
 const ID = 'id';
 const PRODUCT_DESCRIPTION = "description";
-const SELLING_PRICE = 'selling_price';
+const PRICE = 'price';
 const NAME = 'name';
 const FIELDS = [
-    ID, PRODUCT_DESCRIPTION, SELLING_PRICE, NAME
+    ID, PRODUCT_DESCRIPTION, PRICE, NAME
 ];
 
 class ProductsModel extends require("./BaseModel") {
