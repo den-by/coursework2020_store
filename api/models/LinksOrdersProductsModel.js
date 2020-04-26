@@ -137,12 +137,7 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         return ordersModel
     }
 
-    static joinProducts() {
-        const productsModel = require('../models/ProductsModel');
-        this.data.join.push(`LEFT JOIN ${productsModel.TABLE_NAME} on ${productsModel.TABLE_NAME}.${productsModel.ID} = ${TABLE_NAME}.${PRODUCT_ID}`);
-        productsModel.syncData(this.data);
-        return productsModel
-    }
+
 
     static joinDeliverys() {
         const deliverysModel = require('../models/DeliverysModel');
