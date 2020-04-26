@@ -69,10 +69,21 @@
         <button>Найти</button>
     </div>
 </form>
-<h2>Фильтр</h2>
-{{#each data.suppliers}}
-    <option  {{#if (eq @root.query.product_id products_id)}}selected{{/if}} value="{{products_id}}">
-        {{products_name}}
-    </option>
-{{/each}}
-<div>{{json data}}</div>
+<h2>Поставщики</h2>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Имя</th>
+        <th>Тип</th>
+    </tr>
+    {{#each data.suppliers}}
+        <tr>
+            <td>{{suppliers_id}}
+            </td>
+            <td>{{suppliers_name}}
+            </td>
+            <td>{{supplier_types}}
+            </td>
+        </tr>
+    {{/each}}
+</table>
