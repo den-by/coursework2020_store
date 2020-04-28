@@ -1,0 +1,38 @@
+<form>
+    <h2>Фильтр</h2>
+    <div>
+        <h4>По дате продажи</h4>
+        <div>
+            <label>От:<br>
+                <input type="date" name="start_date" value="{{{query.start_date}}}">
+            </label>
+        </div>
+        <div>
+            <label>До:<br>
+                <input type="date" name="end_date" value="{{{query.end_date}}}">
+            </label>
+        </div>
+    </div>
+    <div>
+        <button>Найти</button>
+    </div>
+</form>
+<h2>Бракованный товар</h2>
+<table>
+    <tr>
+        <th>Товар</th>
+        <th>Имя поставщика</th>
+        <th>Количество шт.</th>
+    </tr>
+    {{#each data.products}}
+        <tr>
+            <td>{{products_name}}
+            </td>
+            <td>{{suppliers_name}}
+            </td>
+            <td>{{sum_count}}
+            </td>
+        </tr>
+    {{/each}}
+</table>
+<div>{{json data}}</div>
