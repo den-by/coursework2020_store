@@ -12,7 +12,8 @@ class SuppliersService extends require("./BaseService") {
             .filterByMinSumCount(minCount)
             .joinDeliverys()
             .filterByProductId(productId);
-        return clientsModel.getSQL();
+        return clientsModel
+            .getSQL();
     };
 }
 

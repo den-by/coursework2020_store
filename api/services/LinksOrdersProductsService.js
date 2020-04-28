@@ -17,11 +17,14 @@ class LinksOrdersProductsService extends require("./BaseService") {
     };
 
     static async getSumCountAndTotalPrice(startDate, endDate) {
-        linksOrdersProductsModel.setShowDefaultTable(false)
+        linksOrdersProductsModel
+            .setShowDefaultTable(false)
             .selectSumCount()
             .selectSumTotalPrice()
-            .filterByDate(startDate, endDate);
-        return await linksOrdersProductsModel.getSQL();
+            .filterByEndDateAdd(startDate)
+            .filterByEndDateAdd(endDate);
+        return await linksOrdersProductsModel
+            .getSQL();
     };
 
 }

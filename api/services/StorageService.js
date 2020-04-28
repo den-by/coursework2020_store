@@ -4,8 +4,10 @@ const storageModel = require('../models/StorageModel');
 class StorageService extends require("./BaseService") {
 
     static getFreeIdByNotEmptyId(ids){
-        storageModel.filterByIdNotIn(ids);
-        return  storageModel.getSQL();
+        storageModel
+            .filterByIdNotIn(ids);
+        return  storageModel
+            .getSQL();
     }
 }
 
