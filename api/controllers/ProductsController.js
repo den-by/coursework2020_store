@@ -6,7 +6,7 @@ const MONTH_COUNT = 'month_count';
 class ProductsController extends require('./BaseController') {
 
     static async getDefectedDeliveryByProducts(req, res) {
-        let data = await productsService.getDefectedDeliveryByProducts(req.query[START_DATE],req.query[END_DATE]);
+        let data = await productsService.getDefectedDeliveryByProducts(req.query[START_DATE], req.query[END_DATE]);
         res.render('home', {title: 'Greetings form Handlebars', 'data': data})
     }
 
@@ -16,8 +16,12 @@ class ProductsController extends require('./BaseController') {
     }
 
     static async getAverageSale(req, res) {
-        let data = await productsService.getProductsAndAverageSale(req.query[MONTH_COUNT]);
-        res.render('home', {title: 'Greetings form Handlebars', 'data': data})
+        let averageSales = await productsService.getProductsAndAverageSale(req.query[MONTH_COUNT]);
+        res.render('averageSales', {
+            title: 'Greetings form Handlebars',
+            'data': {averageSales: averageSales},
+            query: req.query
+        })
     }
 
     static async getSelProductsByDay(req, res) {

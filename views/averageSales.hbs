@@ -1,0 +1,33 @@
+<form>
+    <h2>Фильтр</h2>
+
+    <div>
+        <label>За последние месяцев:<br>
+            <input type="number" name="month_count" value="{{{query.month_count}}}">
+        </label>
+    </div>
+    <div>
+        <button>Найти</button>
+    </div>
+</form>
+<h2>Средние продажи</h2>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Товар</th>
+        <th>Количество в месяц шт.</th>
+        <th>Выручка в месяц</th>
+    </tr>
+    {{#each data.averageSales}}
+        <tr>
+            <td>{{products_id}}
+            </td>
+            <td>{{products_name}}
+            </td>
+            <td>{{average_count_by_month}}
+            </td>
+            <td>{{average_total_price_by_month}}
+            </td>
+        </tr>
+    {{/each}}
+</table>
