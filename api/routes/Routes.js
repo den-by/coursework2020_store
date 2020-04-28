@@ -4,7 +4,7 @@ module.exports = function (app) {
     const suppliersController = require("../controllers/SuppliersController");
     const productsController = require("../controllers/ProductsController");
     const clientController = require("../controllers/ClientsController");
-    const cashReportController = require("../controllers/CashReportController");
+    const SalesController = require("../controllers/SalesController");
     const preOrdersController = require("../controllers/PreOrdersController");
     const storageController = require("../controllers/StorageController");
 
@@ -36,8 +36,8 @@ module.exports = function (app) {
     app.route('/products/by_day')
         .get(productsController.getSelProductsByDay);
 
-    app.route('/cash_report')
-        .get(cashReportController.get);
+    app.route('/sales')
+        .get(SalesController.get);
 
     app.route('/pre-orders')
         .get(preOrdersController.getAll);

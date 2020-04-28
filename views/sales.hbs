@@ -1,0 +1,46 @@
+<form>
+    <h2>Фильтр</h2>
+    <div>
+        <h4>По поставкам</h4>
+        <div>
+            <label>От:<br>
+                <input type="date" name="start_date" value="{{{query.start_date}}}">
+            </label>
+        </div>
+        <div>
+            <label>До:<br>
+                <input type="date" name="end_date" value="{{{query.end_date}}}">
+            </label>
+        </div>
+    </div>
+    <div>
+        <button>Найти</button>
+    </div>
+</form>
+<h2>Продажи</h2>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Имя</th>
+        <th>Тип</th>
+        <th>количество шт.</th>
+        <th>общая цена шт.</th>
+        <th>дата покупки.</th>
+    </tr>
+    {{#each data.sales}}
+        <tr>
+            <td>{{links_orders_products_id}}
+            </td>
+            <td>{{products_name}}
+            </td>
+            <td>{{links_orders_products_price}}
+            </td>
+            <td>{{links_orders_products_count}}
+            </td>
+            <td>{{links_orders_products_total_price}}
+            </td>
+            <td>{{formatDate links_orders_products_date_add}}
+            </td>
+        </tr>
+    {{/each}}
+</table>

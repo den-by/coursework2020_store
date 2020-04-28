@@ -15,7 +15,7 @@ const AVERAGE_TOTAL_PRICE_BY_MONTH = 'average_total_price_by_month';
 const SUM_COUNT = 'sum_count';
 const SUM_TOTAL_PRICE = 'sum_total_price';
 const FIELDS = [
-    ID, ORDER_ID, PRICE, COUNT, DATE_ADD
+    ID, ORDER_ID, PRICE, COUNT, DATE_ADD, TOTAL_PRICE
 ];
 
 class LinksOrdersProductsModel extends require("./BaseModel") {
@@ -120,18 +120,30 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
 
     static filterByDay(startDate) {
         if (startDate) {
-            this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startDate}`);
-            this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${startDate} + INTERVAL 1 DAY`);
+            const parseStartDate = Date.parse(startDate);
+            if (parseStartDate) {
+                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} <  ${startDate.replace(/-/g, '').substr(2)} + INTERVAL 1 DAY`);
+            }
         }
         return this;
     }
 
-    static filterByDate(startDate, endDate) {
+    static filterByStartDateAdd(startDate) {
         if (startDate) {
-            this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startDate}`);
+            const parseStartDate = Date.parse(startDate);
+            if (parseStartDate) {
+                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startDate.replace(/-/g, '').substr(2)}`);
+            }
         }
+        return this;
+    }
+
+    static filterByEndDateAdd(endDate) {
         if (endDate) {
-            this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endDate}`);
+            const parseEndDate = Date.parse(endDate);
+            if (parseEndDate) {
+                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endDate.replace(/-/g, '').substr(2)}`);
+            }
         }
         return this;
     }

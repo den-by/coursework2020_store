@@ -5,15 +5,22 @@ class LinksOrdersProductsService extends require("./BaseService") {
 
 
     static async getCashReportByDate(startDate, endDate) {
-
-        const productsModel = linksOrdersProductsModel.filterByDate(startDate,endDate).orderByDateAdd().joinDeliverys().joinProducts();
-        productsModel.getAllSelectedField();
-
-        return linksOrdersProductsModel.getSQL();
+        linksOrdersProductsModel
+            .filterByStartDateAdd(startDate)
+            .filterByEndDateAdd(endDate)
+            .orderByDateAdd()
+            .joinDeliverys()
+            .joinProducts()
+            .selectTable();
+        return linksOrdersProductsModel
+            .getSQL();
     };
 
     static async getSumCountAndTotalPrice(startDate, endDate) {
-        linksOrdersProductsModel.setShowDefaultTable(false).selectSumCount().selectSumTotalPrice().filterByDate(startDate, endDate);
+        linksOrdersProductsModel.setShowDefaultTable(false)
+            .selectSumCount()
+            .selectSumTotalPrice()
+            .filterByDate(startDate, endDate);
         return await linksOrdersProductsModel.getSQL();
     };
 
