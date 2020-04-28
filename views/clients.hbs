@@ -1,0 +1,61 @@
+<form>
+    <h2>Фильтр</h2>
+    <div>
+        <h4>По поставкам</h4>
+        <div>
+            <label>От:<br>
+                <input type="date" name="start_date" value="{{{query.start_date}}}">
+            </label>
+        </div>
+        <div>
+            <label>До:<br>
+                <input type="date" name="end_date" value="{{{query.end_date}}}">
+            </label>
+        </div>
+        <div>
+            <label>Количество поставленных продуктов за периуд не менее заданного:<br>
+                <input type="number" name="min_value" value="{{{query.min_value}}}">
+            </label>
+        </div>
+        <div>
+            <label> поиск по продукту который бы в поставке:<br>
+                <select name="deliverys_product_id">
+                    <option value="">
+                        Все
+                    </option>
+                    {{#each data.products}}
+                        <option {{#if (eq @root.query.deliverys_product_id products_id)}}selected{{/if}}
+                                value="{{products_id}}">
+                            {{products_name}}
+                        </option>
+                    {{/each}}
+                </select>
+            </label>
+        </div>
+    </div>
+    <div>
+        <button>Найти</button>
+    </div>
+</form>
+<h2>Клиенты</h2>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Имя</th>
+        <th>Тип</th>
+        <th>количество шт.</th>
+    </tr>
+    {{#each data.clients}}
+        <tr>
+            <td>{{clients_id}}
+            </td>
+            <td>{{clients_name}}
+            </td>
+            <td>{{supplier_types_name}}
+            </td>
+            <td>{{sum_count}}
+            </td>
+        </tr>
+    {{/each}}
+</table>
+<div>{{json data}}</div>

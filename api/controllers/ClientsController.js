@@ -1,14 +1,20 @@
 const clientService = require('../services/ClientsService');
-const PRODUCT_ID = 'product_id';
+const productsService = require('../services/ProductsService');
+const DELIVERYS_PRODUCT_ID = 'deliverys_product_id';
 const START_DATE = 'start_date';
 const END_DATE = 'end_date';
-const MIN_COUNT = 'min_count';
+const MIN_VALUE = 'min_value';
 
 class ClientsController extends require('./BaseController') {
 
     static async clientAndCount(req, res) {
-        let data = await clientService.getClientAndAggregateCountByProductMinValueDate(req.query[PRODUCT_ID], req.query[START_DATE], req.query[END_DATE], req.query[MIN_COUNT]);
-        res.render('home', {title: 'Greetings form Handlebars', 'data': data})
+        const products = await productsService.getAll();
+        let clients = await clientService.getClientAndAggregateCountByProductMinValueDate(req.query[DELIVERYS_PRODUCT_ID], req.query[START_DATE], req.query[END_DATE], req.query[MIN_VALUE]);
+        res.render('clients', {
+            title: 'Greetings form Handlebars',
+            'data': {clients: clients, products: products},
+            query: req.query
+        })
     }
 }
 

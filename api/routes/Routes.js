@@ -49,7 +49,7 @@ module.exports = function (app) {
     app.route('/storage/free_spaces')
         .get(storageController.getFreeCells);
 
-    app.route('/clients/client_and_count')
+    app.route('/clients')
         .get(clientController.clientAndCount);
 
     app.route('/tasks/:taskId')
