@@ -41,13 +41,6 @@ class SuppliersModel extends require("./BaseModel") {
         return supplierTypesModel
     }
 
-    static selectPriceDeliveryTime() {
-        const linksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
-        linksProductsSuppliersModel.selectTable();
-        this.data.tables.push(linksProductsSuppliersModel);
-        return this;
-    }
-
     static joinLinkProductsSuppliers() {
         const linksProductsSuppliersModel = require('../models/LinksProductsSuppliersModel');
         this.data.join.push(`LEFT JOIN ${linksProductsSuppliersModel.TABLE_NAME} on ${linksProductsSuppliersModel.TABLE_NAME}.${linksProductsSuppliersModel.SUPPLIER_ID} = ${TABLE_NAME}.${ID}`);

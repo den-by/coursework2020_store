@@ -1,0 +1,39 @@
+<form>
+    <h2>Фильтр</h2>
+    <label>Поиск по продукту который поставляет поставщик сейчас:<br>
+        <select name="product_id">
+            <option value="">
+                Все
+            </option>
+            {{#each data.products}}
+                <option  {{#if (eq @root.query.product_id products_id)}}selected{{/if}} value="{{products_id}}">
+                    {{products_name}}
+                </option>
+            {{/each}}
+        </select>
+    </label>
+    <div>
+        <button>Найти</button>
+    </div>
+</form>
+<h2>Товары и кем поставляется</h2>
+<table>
+    <tr>
+        <th>Поставщик</th>
+        <th>Товар</th>
+        <th>Время поставки часов</th>
+        <th>Цена</th>
+    </tr>
+    {{#each data.supplierProducts}}
+        <tr>
+            <td>{{suppliers_name}}
+            </td>
+            <td>{{products_name}}
+            </td>
+            <td>{{links_products_suppliers_delivery_hour}}
+            </td>
+            <td>{{links_products_suppliers_price}}
+            </td>
+        </tr>
+    {{/each}}
+</table>

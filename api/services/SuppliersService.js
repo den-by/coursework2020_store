@@ -10,9 +10,8 @@ class SuppliersService extends require("./BaseService") {
         return suppliersModel.getSQL();
     };
 
-    static async getSuppliersAndDeliveryTimeByProduct(productId) {
-        suppliersModel.joinLinkProductsSuppliers().filterByProductId(productId);
-        suppliersModel.selectPriceDeliveryTime();
+    static async getSuppliersProductsDeliveryTimeByProduct(productId) {
+        suppliersModel.joinLinkProductsSuppliers().selectTable().filterByProductId(productId).joinProducts().selectTable();
         return suppliersModel.getSQL();
     };
 

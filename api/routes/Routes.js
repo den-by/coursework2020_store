@@ -15,7 +15,7 @@ module.exports = function (app) {
     app.route('/suppliers')
         .get(suppliersController.listAllSuppliers);
 
-    app.route('/suppliers/delivery_time')
+    app.route('/products')
         .get(suppliersController.getSuppliersAndDeliveryTimeByProduct);
 
     app.route('/suppliers/top_10')
@@ -33,8 +33,6 @@ module.exports = function (app) {
     app.route('/products/average_sale')
         .get(productsController.getAverageSale);
 
-    app.route('/products/average_sale')
-        .get(productsController.getAverageSale);
 
     app.route('/products/by_day')
         .get(productsController.getSelProductsByDay);
