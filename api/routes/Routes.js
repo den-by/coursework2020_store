@@ -40,7 +40,7 @@ module.exports = function (app) {
     app.route('/cash_report')
         .get(cashReportController.get);
 
-    app.route('/pre_orders')
+    app.route('/pre-orders')
         .get(preOrdersController.getAll);
 
     app.route('/storage')

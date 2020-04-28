@@ -2,14 +2,15 @@
 const TABLE_NAME = "pre_orders";
 const ID = 'id';
 const PRODUCT_NAME = "product_name";
-const SELLING_PRICE = 'price';
+const PRICE = 'price';
 const COUNT = 'count';
-const TOTAL_COUNT = 'total_count';
+const CLIENT_ID = 'client_id';
 const TOTAL_PRICE = 'total_price';
 const PRE_ORDERS_COUNT = 'pre_orders_count';
+const DATE_ADD = 'date_add';
 const SUM_TOTAL_PRICE = 'sum_total_price';
 const FIELDS = [
-    ID, PRODUCT_NAME, SELLING_PRICE, COUNT, TOTAL_PRICE
+    ID, PRODUCT_NAME, PRICE, COUNT, TOTAL_PRICE, DATE_ADD
 ];
 
 class PreOrdersModel extends require("./BaseModel") {
@@ -37,12 +38,13 @@ class PreOrdersModel extends require("./BaseModel") {
     }
 
 
-    // static joinDelivery() {
-    //     const deliveryModel = require('./DeliverysModel');
-    //     this.data.join.push(`LEFT JOIN ${deliveryModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${deliveryModel.TABLE_NAME}.${deliveryModel.DELIVERY_ID}`);
-    //     deliveryModel.syncData(this.data);
-    //     return deliveryModel;
-    // }
+    static joinClients() {
+        const clientsModel = require('./ClientsModel');
+        this.data.join.push(`LEFT JOIN ${clientsModel.TABLE_NAME} on ${TABLE_NAME}.${CLIENT_ID} = ${clientsModel.TABLE_NAME}.${clientsModel.ID}`);
+        clientsModel.syncData(this.data);
+        return clientsModel;
+    }
+
     //
     // static joinLinksOrdersProducts() {
     //     const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');

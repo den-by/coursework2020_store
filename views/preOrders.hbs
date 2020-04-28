@@ -1,0 +1,31 @@
+<h2>Заявки</h2>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Товар</th>
+        <th>Клиент</th>
+        <th>За штуку</th>
+        <th>количество шт.</th>
+        <th>Итого</th>
+        <th>Дата</th>
+    </tr>
+    {{#each data.preOrders}}
+        <tr>
+            <td>{{pre_orders_id}}
+            </td>
+            <td>{{pre_orders_product_name}}
+            </td>
+            <td>{{clients_name}}
+            </td>
+            <td>{{pre_orders_price}}
+            </td>
+            <td>{{pre_orders_count}}
+            </td>
+            <td>{{pre_orders_total_price}}
+            </td>
+            <td>{{formatDate pre_orders_date_add}}
+            </td>
+        </tr>
+    {{/each}}
+</table>
+<div>{{json data}}</div>
