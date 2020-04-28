@@ -58,32 +58,38 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         return this;
     }
 
-    static selectPercentSumTotalPrice(sum){
+    static selectPercentSumTotalPrice(sum) {
         // this.data.select.push(`ROUND(sum(${TABLE_NAME}.${TOTAL_PRICE}) / (select sum(${TABLE_NAME}.${TOTAL_PRICE}) from ${TABLE_NAME} where  ${startDate?startDate+' < '+DATE_ADD:''} and ${DATE_ADD} < ${endDate}) * 100,2) as  ${PERCENT_TOTAL_PRICE}`);
         this.data.select.push(`ROUND(sum(${TABLE_NAME}.${TOTAL_PRICE} / ${sum}) * 100,2) as  ${PERCENT_TOTAL_PRICE}`);
         // this.data.select.push(`ROUND( (select sum(tab1.${TOTAL_PRICE}) from ${TABLE_NAME} as tab1 join ${TABLE_NAME} as tab2 on tab2.id = tab1.id),2) as  ${PERCENT_TOTAL_PRICE}`);
         return this;
     }
 
-    static selectPercentSumCount(sum){
+    static selectPercentSumCount(sum) {
         this.data.select.push(`ROUND(sum(${TABLE_NAME}.${COUNT}) / ${sum} * 100,2) as  ${PERCENT_COUNT}`);
         // this.data.select.push(`ROUND(sum(${TABLE_NAME}.${COUNT}) / (select sum(${TABLE_NAME}.${COUNT}) from ${TABLE_NAME} ) * 100,2) as  ${PERCENT_COUNT}`);
         return this;
     }
 
     static selectAverageCountBYMonth(numberOfMonthsPassed) {
-        this.data.select.push(`ROUND( sum(${TABLE_NAME}.${COUNT}) / ${numberOfMonthsPassed}, 0) as ${AVERAGE_COUNT_BY_MONTH}`);
+        if (numberOfMonthsPassed) {
+            this.data.select.push(`ROUND( sum(${TABLE_NAME}.${COUNT}) / ${numberOfMonthsPassed}, 0) as ${AVERAGE_COUNT_BY_MONTH}`);
+        }
         return this;
     }
 
 
     static selectAverageTotalPriceByMonth(numberOfMonthsPassed) {
-        this.data.select.push(`ROUND( sum(${TABLE_NAME}.${TOTAL_PRICE}) / ${numberOfMonthsPassed}, 0) as ${AVERAGE_TOTAL_PRICE_BY_MONTH}`);
+        if (numberOfMonthsPassed) {
+            this.data.select.push(`ROUND( sum(${TABLE_NAME}.${TOTAL_PRICE}) / ${numberOfMonthsPassed}, 0) as ${AVERAGE_TOTAL_PRICE_BY_MONTH}`);
+        }
         return this;
     }
 
     static filterByNumberOfMonthsPassed(numberOfMonthsPassed) {
-        this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > NOW() - INTERVAL ${numberOfMonthsPassed} MONTH`);
+        if (numberOfMonthsPassed) {
+            this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > NOW() - INTERVAL ${numberOfMonthsPassed} MONTH`);
+        }
         return this;
     }
 
@@ -138,7 +144,6 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
     }
 
 
-
     static joinDeliverys() {
         const deliverysModel = require('../models/DeliverysModel');
         this.data.join.push(`LEFT JOIN ${deliverysModel.TABLE_NAME} on ${deliverysModel.TABLE_NAME}.${deliverysModel.ID} = ${TABLE_NAME}.${DELIVERY_ID}`);
@@ -146,7 +151,7 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         return deliverysModel
     }
 
-    static groupById(){
+    static groupById() {
         this.data.groupBy.push(`${TABLE_NAME}.${ID}`);
         return this
     }
