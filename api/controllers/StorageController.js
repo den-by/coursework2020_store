@@ -12,7 +12,7 @@ class StorageController extends require('./BaseController') {
         const products = await productsService.getAll();
         res.render('storage', {
             title: 'Склад',
-            'data': {storage: storage, products: products},
+            data: {storage: storage, products: products},
             query: req.query
         })
     }
@@ -21,7 +21,7 @@ class StorageController extends require('./BaseController') {
         const storageData = await deliverysService.getInStorageByDateProductId();
         const notEmptyIds = Array.from(storageData, x => x['storage_id']);
         const emptyStorage = await storageService.getFreeIdByNotEmptyId(notEmptyIds);
-        res.render('emptyStorage', {title: 'Greetings form Handlebars', 'data': {emptyStorage: emptyStorage}})
+        res.render('emptyStorage', {title: 'Greetings form Handlebars', data: {emptyStorage: emptyStorage}})
     }
 }
 

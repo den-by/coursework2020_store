@@ -132,7 +132,7 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         if (startDate) {
             const parseStartDate = Date.parse(startDate);
             if (parseStartDate) {
-                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startDate.replace(/-/g, '').substr(2)}`);
+                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startDate.replace(/-/g, '').substr(2)} or ${TABLE_NAME}.${DATE_ADD} is null`);
             }
         }
         return this;
@@ -142,7 +142,7 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
         if (endDate) {
             const parseEndDate = Date.parse(endDate);
             if (parseEndDate) {
-                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endDate.replace(/-/g, '').substr(2)}`);
+                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endDate.replace(/-/g, '').substr(2)} or ${TABLE_NAME}.${DATE_ADD} is null`);
             }
         }
         return this;

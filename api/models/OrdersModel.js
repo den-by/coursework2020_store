@@ -34,7 +34,7 @@ class OrdersModel extends require("./BaseModel") {
         return LinksOrdersProductsModel
     }
 
-    static filterByDate(startDate,endDate) {
+    static filterByDate(startDate, endDate) {
         if (startDate) {
             this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startDate}`);
         }

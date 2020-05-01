@@ -44,19 +44,6 @@ class PreOrdersModel extends require("./BaseModel") {
         clientsModel.syncData(this.data);
         return clientsModel;
     }
-
-    //
-    // static joinLinksOrdersProducts() {
-    //     const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
-    //     this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.DELIVERY_ID}`);
-    //     linksOrdersProductsModel.syncData(this.data);
-    //     return linksOrdersProductsModel;
-    // }
-
-    // static groupById(){
-    //     this.data.groupBy.push(`${TABLE_NAME}.${ID}`);
-    //     return this;
-    // }
 }
 
 module.exports = PreOrdersModel;

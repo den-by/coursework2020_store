@@ -46,9 +46,9 @@ class SuppliersController extends require('./BaseController') {
     static async getProfit(req, res) {
 
         const {sum_count: sum_orders_count, sum_total_price: sum_orders_total_price} = (await linksOrdersProductsService.getSumCountAndTotalPrice(req.query[START_DATE], req.query[END_DATE]))[0];
-        let suppliers = await suppliersService.getSuppliersAndProfit(req.query[START_DATE], req.query[END_DATE], sum_orders_count, sum_orders_total_price);
+        const suppliers = await suppliersService.getSuppliersAndProfit(req.query[START_DATE], req.query[END_DATE], sum_orders_count, sum_orders_total_price);
         const {sum_count: sum_delivery_count, sum_total_price: sum_delivery_total_price} = (await deliveryService.getSymTotalPriceByDate(req.query[START_DATE], req.query[END_DATE]))[0];
-        res.render('home', {
+        res.render('suppliersProfit', {
             title: 'Greetings form Handlebars',
             data: {
                 suppliers: suppliers,

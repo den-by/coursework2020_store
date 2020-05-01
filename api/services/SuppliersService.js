@@ -47,7 +47,9 @@ class SuppliersService extends require("./BaseService") {
         suppliersModel
             .groupById()
             .joinDelivery()
-            .joinLinksOrdersProductsByStartDateAndEndDate(startDate, endDate)
+            .joinLinksOrdersProducts()
+            .filterByStartDateAdd(startDate)
+            .filterByEndDateAdd(endDate)
             .selectSumCount()
             .selectSumTotalPrice()
             .selectPercentSumTotalPrice(sum_total_price)

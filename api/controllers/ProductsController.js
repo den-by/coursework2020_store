@@ -11,7 +11,8 @@ class ProductsController extends require('./BaseController') {
         res.render('defectiveProducts', {
             title: 'Greetings form Handlebars',
             data: {products: products},
-            query: req.query})
+            query: req.query
+        })
     }
 
     static async getTopProducts(req, res) {

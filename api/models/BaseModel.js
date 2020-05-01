@@ -31,13 +31,13 @@ class testClass {
         return this;
     }
 
-    static setShowDefaultTable(value){
-        this.data.showDefaultTable=value;
+    static setShowDefaultTable(value) {
+        this.data.showDefaultTable = value;
         return this;
     }
 
     static getAllSelectedField() {
-        if(this.data.showDefaultTable){
+        if (this.data.showDefaultTable) {
             this.data.tables.unshift(this);
         }
         if (this.data.tables.length < 1 && this.data.select.length < 1) {
@@ -70,7 +70,7 @@ class testClass {
 
         this.data.tables = [];
         this.data.select = [];
-        this.data.showDefaultTable= true;
+        this.data.showDefaultTable = true;
 
         if (this.data.join.length > 0) {
             sql += ` ${this.data.join.join(" ")}`;

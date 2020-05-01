@@ -47,24 +47,6 @@ class DeliverysModel extends require("./BaseModel") {
         return this;
     }
 
-    // static filterByDelivery(startData, endData, productId = null) {
-    //     this.filterByProductId(productId);
-    //     // if (productId) {
-    //     //     this.data.where.push(`${TABLE_NAME}.${DELIVERY_ID} = ${productId}`);
-    //     // }
-    //
-    //     this.filterByDateAdd(startData, endData);
-    //     // if (startData && endData) {
-    //     //     const parseStartDate = Date.parse(startData);
-    //     //     const parseEndDate = Date.parse(endData);
-    //     //     if (parseStartDate && parseEndDate) {
-    //     //         this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData}`);
-    //     //         this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData}`);
-    //     //     }
-    //     // }
-    //     return this;
-    // }
-
     static filterByMinSumCount(minValue) {
         if (minValue) {
             this.data.having.push(`sum(${TABLE_NAME}.${COUNT}) >= ${minValue}`);
@@ -83,7 +65,7 @@ class DeliverysModel extends require("./BaseModel") {
         if (startData) {
             const parseStartDate = Date.parse(startData);
             if (parseStartDate) {
-                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData.replace(/-/g,'').substr(2)}`);
+                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startData.replace(/-/g, '').substr(2)}`);
             }
         }
         return this;
@@ -93,7 +75,7 @@ class DeliverysModel extends require("./BaseModel") {
         if (endData) {
             const parseEndDate = Date.parse(endData);
             if (parseEndDate) {
-                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData.replace(/-/g,'').substr(2)}`);
+                this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endData.replace(/-/g, '').substr(2)}`);
             }
         }
         return this;
@@ -128,34 +110,9 @@ class DeliverysModel extends require("./BaseModel") {
         return writeoffsModel;
     }
 
-    static joinLinksOrdersProducts(where) {
+    static joinLinksOrdersProducts() {
         const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
-        if (where) {
-            // Object.entries( where )
-            const reduce = (obj, fun, initialValue) =>
-                Object.entries(obj).reduce(
-                    (prev, [key, value]) => fun(prev, key, value),
-                    initialValue
-                );
-            const joinWhere = reduce(where, (prev, key, value) => {
-                return `${prev} and ${linksOrdersProductsModel.TABLE_NAME}.${key} = ${value}`
-            }, '')
-
-        }
         this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.DELIVERY_ID}`);
-        linksOrdersProductsModel.syncData(this.data);
-        return linksOrdersProductsModel;
-    }
-
-    static joinLinksOrdersProductsByStartDateAndEndDate(startDate, endDate) {
-        const linksOrdersProductsModel = require('../models/LinksOrdersProductsModel');
-        if (startDate) {
-            startDate = ` and ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.DATE_ADD} > ${startDate}`
-        }
-        if (endDate) {
-            endDate = ` and ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.DATE_ADD} < ${endDate}`
-        }
-        this.data.join.push(`LEFT JOIN ${linksOrdersProductsModel.TABLE_NAME} on ${TABLE_NAME}.${ID} = ${linksOrdersProductsModel.TABLE_NAME}.${linksOrdersProductsModel.DELIVERY_ID} ${startDate} ${endDate}`);
         linksOrdersProductsModel.syncData(this.data);
         return linksOrdersProductsModel;
     }
@@ -172,7 +129,7 @@ class DeliverysModel extends require("./BaseModel") {
         return this;
     }
 
-    static groupById(){
+    static groupById() {
         this.data.groupBy.push(`${TABLE_NAME}.${ID}`);
         return this
     }

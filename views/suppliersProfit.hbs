@@ -1,0 +1,54 @@
+{{> suppliers}}
+<form>
+    <h2>Фильтр</h2>
+    <div>
+        <h4>По поставкам</h4>
+        <div>
+            <label>От:<br>
+                <input type="date" name="start_date" value="{{{query.start_date}}}">
+            </label>
+        </div>
+        <div>
+            <label>До:<br>
+                <input type="date" name="end_date" value="{{{query.end_date}}}">
+            </label>
+        </div>
+    </div>
+    <div>
+        <button>Найти</button>
+    </div>
+</form>
+<h2>Поставщики</h2>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Имя</th>
+        <th>Суммарное продажи в количестве</th>
+        <th>Процент пордаж в количестве</th>
+        <th>Суммарные продажи в деньгах</th>
+        <th>Процент в продаж в деньгах</th>
+    </tr>
+    {{#each data.suppliers}}
+        <tr>
+            <td>{{suppliers_id}}
+            </td>
+            <td>{{suppliers_name}}
+            </td>
+            <td>{{sum_count}}
+            </td>
+            <td>{{percent_count}}
+            </td>
+            <td>{{sum_total_price}}
+            </td>
+            <td>{{percent_total_price}}
+            </td>
+
+        </tr>
+    {{/each}}
+</table>
+<div>
+    Общее количество: <br>{{data.sum_orders_count}} шт.
+</div>
+<div>
+    Общая сумма: <br>{{data.sum_orders_total_price}}
+</div>

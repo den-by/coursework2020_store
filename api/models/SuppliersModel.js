@@ -55,7 +55,7 @@ class SuppliersModel extends require("./BaseModel") {
         return DeliveryModel;
     }
 
-    static groupById(){
+    static groupById() {
         this.data.groupBy.push(`${TABLE_NAME}.${ID}`);
         return this
     }

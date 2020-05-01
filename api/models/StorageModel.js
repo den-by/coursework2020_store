@@ -28,7 +28,7 @@ class StorageModel extends require("./BaseModel") {
     }
 
     static filterByIdNotIn(ids) {
-        if(ids) {
+        if (ids) {
             this.data.where.push(`${TABLE_NAME}.${ID} not in (${ids.join(',')})`);
             return this;
         }
