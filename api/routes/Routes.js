@@ -18,7 +18,7 @@ module.exports = function (app) {
     app.route('/products')
         .get(suppliersController.getSuppliersAndDeliveryTimeByProduct);
 
-    app.route('/suppliers/top_10')
+    app.route('/suppliers/top-10')
         .get(suppliersController.getTopSuppliers);
 
     app.route('/suppliers/profit')

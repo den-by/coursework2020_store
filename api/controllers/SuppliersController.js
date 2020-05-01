@@ -18,8 +18,8 @@ class SuppliersController extends require('./BaseController') {
         const supplierTypes = await supplierTypesService.getAll();
         res.render('suppliers', {
             title: 'Все поставщики',
-            'data': {suppliers: suppliers, products: products, supplierTypes: supplierTypes},
-            'query': req.query
+            data: {suppliers: suppliers, products: products, supplierTypes: supplierTypes},
+            query: req.query
         })
     }
 
@@ -28,14 +28,19 @@ class SuppliersController extends require('./BaseController') {
         let products = await productsService.getAll();
         res.render('productsSuppliers', {
             title: 'Greetings form Handlebars',
-            'data': {supplierProducts: supplierProducts, products: products},
-            'query': req.query
+            data: {supplierProducts: supplierProducts, products: products},
+            query: req.query
         })
     }
 
     static async getTopSuppliers(req, res) {
-        let data = await suppliersService.getTopSuppliersByProduct(req.query[productId]);
-        res.render('home', {title: 'Greetings form Handlebars', 'data': data})
+        let products = await productsService.getAll();
+        let suppliers = await suppliersService.getTopSuppliersByProduct(req.query[productId]);
+        res.render('suppliersTop10', {
+            title: 'Greetings form Handlebars',
+            data: {suppliers: suppliers, products: products},
+            query: req.query
+        })
     }
 
     static async getProfit(req, res) {
@@ -45,7 +50,7 @@ class SuppliersController extends require('./BaseController') {
         const {sum_count: sum_delivery_count, sum_total_price: sum_delivery_total_price} = (await deliveryService.getSymTotalPriceByDate(req.query[START_DATE], req.query[END_DATE]))[0];
         res.render('home', {
             title: 'Greetings form Handlebars',
-            'data': {
+            data: {
                 suppliers: suppliers,
                 sum_delivery_count: sum_delivery_count,
                 sum_delivery_total_price: sum_delivery_total_price,

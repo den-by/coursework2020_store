@@ -17,7 +17,7 @@
         <button>Найти</button>
     </div>
 </form>
-<h2>Товары и кем поставляется</h2>
+<h2>10 самый дешевых поставщиков</h2>
 <table>
     <tr>
         <th>Поставщик</th>
@@ -25,7 +25,7 @@
         <th>Время поставки часов</th>
         <th>Цена</th>
     </tr>
-    {{#each data.supplierProducts}}
+    {{#each data.suppliers}}
         <tr>
             <td>{{suppliers_name}}
             </td>
