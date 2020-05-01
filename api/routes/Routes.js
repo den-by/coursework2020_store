@@ -27,10 +27,10 @@ module.exports = function (app) {
     app.route('/products/defective')
         .get(productsController.getDefectedDeliveryByProducts);
 
-    app.route('/products/top_10')
+    app.route('/sales/top-10')
         .get(productsController.getTopProducts);
 
-    app.route('/products/average_sale')
+    app.route('/sales/average')
         .get(productsController.getAverageSale);
 
     app.route('/products/by_day')
