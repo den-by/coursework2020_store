@@ -1,0 +1,16 @@
+{{> sales}}
+<h2>Топ 10 продаж</h2>
+<table>
+    <tr>
+        <th>Имя</th>
+        <th>количество шт.</th>
+    </tr>
+    {{#each data.products}}
+        <tr>
+            <td>{{products_name}}
+            </td>
+            <td>{{sum_count}}
+            </td>
+        </tr>
+    {{/each}}
+</table>

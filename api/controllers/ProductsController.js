@@ -15,9 +15,9 @@ class ProductsController extends require('./BaseController') {
     }
 
     static async getTopProducts(req, res) {
-        const data = await productsService
+        const products = await productsService
             .getTopProducts();
-        res.render('home', {title: 'Greetings form Handlebars', 'data': data})
+        res.render('salesTop10', {title: 'Greetings form Handlebars', data: {products: products}})
     }
 
     static async getAverageSale(req, res) {
