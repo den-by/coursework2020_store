@@ -20,7 +20,7 @@ class LinksOrdersProductsService extends require("./BaseService") {
             .setShowDefaultTable(false)
             .selectSumCount()
             .selectSumTotalPrice()
-            .filterByEndDateAdd(startDate)
+            .filterByStartDateAdd(startDate)
             .filterByEndDateAdd(endDate);
         return await linksOrdersProductsModel
             .getSQL();

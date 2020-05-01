@@ -57,6 +57,7 @@ class SuppliersController extends require('./BaseController') {
                 sum_orders_count: sum_orders_count,
                 sum_orders_total_price: sum_orders_total_price
             }
+            ,query: req.query
         })
     }
 
