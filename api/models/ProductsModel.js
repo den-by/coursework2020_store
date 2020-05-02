@@ -1,11 +1,10 @@
 "use strict";
 const TABLE_NAME = "products";
 const ID = 'id';
-const PRODUCT_DESCRIPTION = "description";
 const PRICE = 'price';
 const NAME = 'name';
 const FIELDS = [
-    ID, PRODUCT_DESCRIPTION, PRICE, NAME
+    ID, PRICE, NAME
 ];
 
 class ProductsModel extends require("./BaseModel") {
