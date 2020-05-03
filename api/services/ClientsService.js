@@ -1,12 +1,13 @@
 "use strict";
 const clientsModel = require('../models/ClientsModel');
 
-class SuppliersService extends require("./BaseService") {
+class ClientsService extends require("./BaseService") {
     static async getClientAndAggregateCountByProductMinValueDate(productId, startDate, endDate, minCount) {
         clientsModel
             .groupById()
             .joinOrders()
-            .filterByDate(startDate, endDate)
+            .filterByStartDateAdd(startDate)
+            .filterByEndDateAdd(endDate)
             .joinLinksOrdersProducts()
             .selectSumCount()
             .filterByMinSumCount(minCount)
@@ -15,6 +16,11 @@ class SuppliersService extends require("./BaseService") {
         return clientsModel
             .getSQL();
     };
+
+    static async getAll() {
+        return clientsModel
+            .getSQL();
+    }
 }
 
-module.exports = SuppliersService;
+module.exports = ClientsService;

@@ -5,17 +5,19 @@ const PRODUCT_ID = "product_id";
 const DELIVERY_ID = "delivery_id";
 const ORDER_ID = "order_id";
 const PRICE = 'price';
+const NAME = 'name';
 const TOTAL_PRICE = 'total_price';
 const PERCENT_TOTAL_PRICE = 'percent_total_price';
 const PERCENT_COUNT = 'percent_count';
 const DATE_ADD = 'date_add';
+const DATE_UPD = 'date_upd';
 const COUNT = 'count';
 const AVERAGE_COUNT_BY_MONTH = 'average_count_by_month';
 const AVERAGE_TOTAL_PRICE_BY_MONTH = 'average_total_price_by_month';
 const SUM_COUNT = 'sum_count';
 const SUM_TOTAL_PRICE = 'sum_total_price';
 const FIELDS = [
-    ID, ORDER_ID, PRICE, COUNT, DATE_ADD, TOTAL_PRICE
+    ID, ORDER_ID, PRICE, COUNT, DATE_ADD, TOTAL_PRICE, NAME, DATE_UPD, DELIVERY_ID
 ];
 
 class LinksOrdersProductsModel extends require("./BaseModel") {
@@ -107,6 +109,20 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
     static filterByProductId(productId) {
         if (productId) {
             this.data.where.push(`${TABLE_NAME}.${PRODUCT_ID} = ${productId}`);
+        }
+        return this;
+    }
+
+    static filterByOrderId(orderId) {
+        if (orderId) {
+            this.data.where.push(`${TABLE_NAME}.${ORDER_ID} = ${orderId}`);
+        }
+        return this;
+    }
+
+    static filterById(id) {
+        if (id) {
+            this.data.where.push(`${TABLE_NAME}.${ID} = ${id}`);
         }
         return this;
     }

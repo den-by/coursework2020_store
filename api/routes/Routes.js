@@ -1,16 +1,12 @@
 'use strict';
 module.exports = function (app) {
-    const todoList = require('../controllers/todoListController');
     const suppliersController = require("../controllers/SuppliersController");
     const productsController = require("../controllers/ProductsController");
     const clientController = require("../controllers/ClientsController");
     const SalesController = require("../controllers/SalesController");
     const preOrdersController = require("../controllers/PreOrdersController");
     const storageController = require("../controllers/StorageController");
-
-    app.route('/tasks')
-        .get(todoList.list_all_tasks)
-        .post(todoList.create_a_task);
+    const ordersController = require("../controllers/OrdersController");
 
     app.route('/suppliers')
         .get(suppliersController.listAllSuppliers);
@@ -51,8 +47,20 @@ module.exports = function (app) {
     app.route('/clients')
         .get(clientController.clientAndCount);
 
-    app.route('/tasks/:taskId')
-        .get(todoList.read_a_task)
-        .put(todoList.update_a_task)
-        .delete(todoList.delete_a_task);
+    app.route('/orders')
+        .get(ordersController.orders)
+        .post(ordersController.createOrder);
+
+    app.route('/order/delete/:orderId')
+        .get(ordersController.deleteOrder);
+
+    app.route('/order/:orderId')
+        .get(ordersController.order)
+        .post(ordersController.createLinksOrdersProducts);
+
+    app.route('/links-orders-products/update/:linksOrdersProducts')
+        .post(ordersController.updateLinksOrdersProducts);
+
+    app.route('/links-orders-products/delete/:linksOrdersProducts')
+        .post(ordersController.deleteLinksOrdersProducts);
 };

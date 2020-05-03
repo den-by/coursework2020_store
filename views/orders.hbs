@@ -1,0 +1,38 @@
+<h2>Заказы</h2>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Клиент</th>
+        <th>Общая сумма</th>
+        <th>Дата добавления</th>
+        <th>Дата обновления</th>
+        <th>Действия</th>
+    </tr>
+    {{#each data.orders}}
+        <tr>
+            <td>{{orders_id}}
+            </td>
+            <td>{{clients_name}}
+            </td>
+            <td>{{orders_total_price}}
+            </td>
+            <td>{{formatDate orders_date_add}}
+            </td>
+            <td>{{formatDate orders_date_upd}}
+            </td>
+            <td>
+                <a href="/order/{{orders_id}}">редактировать</a> <a href="/order/delete/{{orders_id}}">удалить</a>
+            </td>
+        </tr>
+    {{/each}}
+</table>
+<form method="post">
+    <select name="client_id">
+        {{#each data.clients}}
+            <option value="{{clients_id}}">
+                {{clients_name}}
+            </option>
+        {{/each}}
+    </select>
+    <input type="submit" value="добавить">
+</form>

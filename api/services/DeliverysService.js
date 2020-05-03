@@ -32,11 +32,11 @@ class DeliverysService extends require("./BaseService") {
             .getSQL();
     }
 
-    static getAllInStorage() {
-        deliverysModel.selectCountInStorage()
-            .filterByMinCountInStorage()
-            .joinLinksOrdersProducts()
-            .groupById();
+    static async getProductNameAndProductPrice(deliveryId) {
+        deliverysModel
+            .filterById(deliveryId)
+            .joinProducts()
+            .selectTable();
         return deliverysModel
             .getSQL();
     }

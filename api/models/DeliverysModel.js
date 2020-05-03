@@ -61,6 +61,13 @@ class DeliverysModel extends require("./BaseModel") {
         return this;
     }
 
+    static filterById(id) {
+        if (id) {
+            this.data.where.push(`${TABLE_NAME}.${ID} = ${id}`);
+        }
+        return this;
+    }
+
     static filterByStartDateAdd(startData) {
         if (startData) {
             const parseStartDate = Date.parse(startData);

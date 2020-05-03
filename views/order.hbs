@@ -1,0 +1,81 @@
+<h2>Товары в заказе</h2>
+<table>
+    <tr>
+        <th>Товар</th>
+        <th>За штуку</th>
+        <th>количество шт.</th>
+        <th>Итого</th>
+        <th>Дата добавления</th>
+        <th>Дата обновления</th>
+        <th>Действия</th>
+        <th></th>
+    </tr>
+    {{#each data.order}}
+        <tr>
+            <form method="post">
+                <td>
+                    <select name="deliverys_product_id">
+                        <option value="{{links_orders_products_delivery_id}}">
+                            {{links_orders_products_name}}
+                        </option>
+                        {{#each @root.data.products}}
+                            <option {{#if (eq deliverys_id links_orders_products_delivery_id)}}selected{{/if}}
+                                    value="{{deliverys_id}}">
+                                {{products_name}}, цена {{products_price}}
+                            </option>
+                        {{/each}}
+                    </select>
+                </td>
+                <td>{{links_orders_products_price}}
+                </td>
+                <td><input name="count" value="{{links_orders_products_count}}">
+                </td>
+                <td>{{links_orders_products_total_price}}
+                </td>
+                <td>{{formatDate links_orders_products_date_add}}
+                </td>
+                <td>{{formatDate links_orders_products_date_upd}}
+                </td>
+                <td>
+                    <input type="submit" value="Редактировать"
+                           formaction="/links-orders-products/update/{{links_orders_products_id}}">
+                </td>
+            </form>
+            <form method="post">
+                <td>
+                    <input type="submit" value="удалить"
+                           formaction="/links-orders-products/delete/{{links_orders_products_id}}">
+                </td>
+            </form>
+        </tr>
+    {{/each}}
+    <form method="post">
+        <tr>
+            <td>
+                <select name="deliverys_product_id">
+                    {{#each data.products}}
+                        <option value="{{deliverys_id}}">
+                            {{products_name}}, цена {{products_price}}
+                        </option>
+                    {{/each}}
+                </select>
+            </td>
+            <td>{{links_orders_products_price}}
+            </td>
+            <td><input name="count" value="{{links_orders_products_count}}">
+            </td>
+            <td>{{links_orders_products_total_price}}
+            </td>
+            <td>{{formatDate links_orders_products_date_add}}
+            </td>
+            <td>{{formatDate links_orders_products_date_upd}}
+            </td>
+            <td>
+                <input type="submit" value="Добавить">
+            </td>
+        </tr>
+    </form>
+</table>
+<div>
+    Общая сумма: {{data.orders_total_price}}
+</div>
