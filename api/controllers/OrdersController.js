@@ -4,6 +4,7 @@ const ordersService = require('../services/OrdersService');
 const linksOrdersProductsService = require('../services/LinksOrdersProductsService');
 const deliverysService = require('../services/DeliverysService');
 const clientsService = require('../services/ClientsService');
+const clientLogService = require('../services/ClientLogService');
 
 class OrdersController extends require('./BaseController') {
 
@@ -13,6 +14,14 @@ class OrdersController extends require('./BaseController') {
         res.render('orders', {
             title: 'Greetings form Handlebars',
             data: {orders: orders, clients: clients}
+        })
+    }
+
+    static async log(req, res) {
+        const clientLog = await clientLogService.getLast20();
+        res.render('clientLog', {
+            title: 'Greetings form Handlebars',
+            data: {clientLog: clientLog}
         })
     }
 

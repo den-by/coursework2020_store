@@ -47,6 +47,8 @@ module.exports = function (app) {
     app.route('/clients')
         .get(clientController.clientAndCount);
 
+    app.route('/orders_log')
+        .get(ordersController.log);
     app.route('/orders')
         .get(ordersController.orders)
         .post(ordersController.createOrder);

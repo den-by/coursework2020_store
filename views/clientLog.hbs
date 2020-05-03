@@ -1,0 +1,19 @@
+{{> orders}}
+<h2>Заказы</h2>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Действие</th>
+        <th>Дата</th>
+    </tr>
+    {{#each data.clientLog}}
+        <tr>
+            <td>{{client_log_id}}
+            </td>
+            <td>{{client_log_event}}
+            </td>
+            <td>{{formatDate client_log_date_add}}
+            </td>
+        </tr>
+    {{/each}}
+</table>
