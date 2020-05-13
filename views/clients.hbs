@@ -1,7 +1,7 @@
 <form>
     <h2>Фильтр</h2>
     <div>
-        <h4>По поставкам</h4>
+        <h4>По заказам</h4>
         <div>
             <label>От:<br>
                 <input type="date" name="start_date" value="{{{query.start_date}}}">
@@ -13,12 +13,12 @@
             </label>
         </div>
         <div>
-            <label>Количество поставленных продуктов за периуд не менее заданного:<br>
+            <label>Количество купленных продуктов за период не менее заданного:<br>
                 <input type="number" name="min_value" value="{{{query.min_value}}}">
             </label>
         </div>
         <div>
-            <label> поиск по продукту который бы в поставке:<br>
+            <label> поиск по продукту который бы в заказе:<br>
                 <select name="deliverys_product_id">
                     <option value="">
                         Все
