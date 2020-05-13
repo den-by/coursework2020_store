@@ -38,6 +38,8 @@ class SuppliersService extends require("./BaseService") {
             .joinLinkProductsSuppliers()
             .filterByProductId(productId)
             .orderByPrice()
+            .selectTable()
+            .joinProducts()
             .selectTable();
         return suppliersModel
             .getSQL();
