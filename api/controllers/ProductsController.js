@@ -9,7 +9,6 @@ class ProductsController extends require('./BaseController') {
         const products = await productsService
             .getDefectedDeliveryByProducts(req.query[START_DATE], req.query[END_DATE]);
         res.render('defectiveProducts', {
-            title: 'Greetings form Handlebars',
             data: {products: products},
             query: req.query
         })
@@ -25,7 +24,6 @@ class ProductsController extends require('./BaseController') {
         const averageSales = await productsService
             .getProductsAndAverageSale(req.query[MONTH_COUNT]);
         res.render('averageSales', {
-            title: 'Greetings form Handlebars',
             data: {averageSales: averageSales},
             query: req.query
         })

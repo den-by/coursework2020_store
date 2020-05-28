@@ -27,7 +27,6 @@ class SuppliersController extends require('./BaseController') {
         let supplierProducts = await suppliersService.getSuppliersProductsDeliveryTimeByProduct(req.query[productId]);
         let products = await productsService.getAll();
         res.render('productsSuppliers', {
-            title: 'Greetings form Handlebars',
             data: {supplierProducts: supplierProducts, products: products},
             query: req.query
         })
@@ -37,7 +36,6 @@ class SuppliersController extends require('./BaseController') {
         let products = await productsService.getAll();
         let suppliers = await suppliersService.getTopSuppliersByProduct(req.query[productId]);
         res.render('suppliersTop10', {
-            title: 'Greetings form Handlebars',
             data: {suppliers: suppliers, products: products},
             query: req.query
         })
@@ -49,7 +47,6 @@ class SuppliersController extends require('./BaseController') {
         const suppliers = await suppliersService.getSuppliersAndProfit(req.query[START_DATE], req.query[END_DATE], sum_orders_count, sum_orders_total_price);
         const {sum_count: sum_delivery_count, sum_total_price: sum_delivery_total_price} = (await deliveryService.getSymTotalPriceByDate(req.query[START_DATE], req.query[END_DATE]))[0];
         res.render('suppliersProfit', {
-            title: 'Greetings form Handlebars',
             data: {
                 suppliers: suppliers,
                 sum_delivery_count: sum_delivery_count,

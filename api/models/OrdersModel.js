@@ -61,16 +61,6 @@ class OrdersModel extends require("./BaseModel") {
         return this;
     }
 
-    static filterByDate(startDate, endDate) {
-        if (startDate) {
-            this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > ${startDate}`);
-        }
-        if (endDate) {
-            this.data.where.push(`${TABLE_NAME}.${DATE_ADD} < ${endDate}`);
-        }
-        return this;
-    }
-
     static filterById(id) {
         if (id) {
             this.data.where.push(`${TABLE_NAME}.${ID} = ${id}`);

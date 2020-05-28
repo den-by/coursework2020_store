@@ -12,7 +12,6 @@ class OrdersController extends require('./BaseController') {
         const orders = await ordersService.getAll();
         const clients = await clientsService.getAll();
         res.render('orders', {
-            title: 'Greetings form Handlebars',
             data: {orders: orders, clients: clients}
         })
     }
@@ -20,7 +19,6 @@ class OrdersController extends require('./BaseController') {
     static async log(req, res) {
         const clientLog = await clientLogService.getLast20();
         res.render('clientLog', {
-            title: 'Greetings form Handlebars',
             data: {clientLog: clientLog}
         })
     }
@@ -30,7 +28,6 @@ class OrdersController extends require('./BaseController') {
         const order = await linksOrdersProductsService.getByOrderId(req.params.orderId);
         const products = await deliverysService.getInStorageByDateProductId();
         res.render('order', {
-            title: 'Greetings form Handlebars',
             data: {order: order, products: products, ...totalPrice}
         })
     }

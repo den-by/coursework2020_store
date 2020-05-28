@@ -61,15 +61,12 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
     }
 
     static selectPercentSumTotalPrice(sum) {
-        // this.data.select.push(`ROUND(sum(${TABLE_NAME}.${TOTAL_PRICE}) / (select sum(${TABLE_NAME}.${TOTAL_PRICE}) from ${TABLE_NAME} where  ${startDate?startDate+' < '+DATE_ADD:''} and ${DATE_ADD} < ${endDate}) * 100,2) as  ${PERCENT_TOTAL_PRICE}`);
         this.data.select.push(`ROUND(sum(${TABLE_NAME}.${TOTAL_PRICE} / ${sum}) * 100,2) as  ${PERCENT_TOTAL_PRICE}`);
-        // this.data.select.push(`ROUND( (select sum(tab1.${TOTAL_PRICE}) from ${TABLE_NAME} as tab1 join ${TABLE_NAME} as tab2 on tab2.id = tab1.id),2) as  ${PERCENT_TOTAL_PRICE}`);
         return this;
     }
 
     static selectPercentSumCount(sum) {
         this.data.select.push(`ROUND(sum(${TABLE_NAME}.${COUNT}) / ${sum} * 100,2) as  ${PERCENT_COUNT}`);
-        // this.data.select.push(`ROUND(sum(${TABLE_NAME}.${COUNT}) / (select sum(${TABLE_NAME}.${COUNT}) from ${TABLE_NAME} ) * 100,2) as  ${PERCENT_COUNT}`);
         return this;
     }
 
@@ -90,7 +87,7 @@ class LinksOrdersProductsModel extends require("./BaseModel") {
 
     static filterByNumberOfMonthsPassed(numberOfMonthsPassed) {
         if (numberOfMonthsPassed) {
-            this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > NOW() - INTERVAL ${numberOfMonthsPassed} MONTH`);
+            this.data.where.push(`${TABLE_NAME}.${DATE_ADD} > get_timestamp_months_before(NOW(),${numberOfMonthsPassed})`);
         }
         return this;
     }

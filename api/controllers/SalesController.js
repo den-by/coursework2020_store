@@ -10,7 +10,6 @@ class SalesController extends require('./BaseController') {
         const sumTotalPrice = await linksOrdersProductsService.getSumTotalPrice(req.query[START_DATE], req.query[END_DATE]);
 
         res.render('sales', {
-            title: 'Greetings form Handlebars',
             data: {sales: sales, ...count, ...sumTotalPrice},
             query: req.query
         })

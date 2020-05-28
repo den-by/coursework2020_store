@@ -7,7 +7,6 @@ class PreOrdersController extends require('./BaseController') {
         const count = await preOrdersService.getCount();
         const sumTotalPrice = await preOrdersService.getSumTotalPrice();
         res.render('preOrders', {
-            title: 'Greetings form Handlebars',
             data: {preOrders: preOrders, ...count, ...sumTotalPrice}
         })
     }

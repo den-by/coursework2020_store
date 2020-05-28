@@ -11,8 +11,7 @@ class ClientsController extends require('./BaseController') {
         const products = await productsService.getAll();
         let clients = await clientService.getClientAndAggregateCountByProductMinValueDate(req.query[DELIVERYS_PRODUCT_ID], req.query[START_DATE], req.query[END_DATE], req.query[MIN_VALUE]);
         res.render('clients', {
-            title: 'Greetings form Handlebars',
-            'data': {clients: clients, products: products},
+            data: {clients: clients, products: products},
             query: req.query
         })
     }
